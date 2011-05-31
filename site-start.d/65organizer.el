@@ -8,6 +8,7 @@
                          "/home/dominik/Documents/org/sofortholz.org"))
 
 (setq org-default-notes-file "~/Documents/org/notes.org")
+(org-agenda-to-appt)
 
 (setq org-export-latex-classes '(("scrartcl" "\\documentclass{scrartcl}
 \\usepackage[utf8]{inputenc}

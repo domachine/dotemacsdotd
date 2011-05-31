@@ -81,3 +81,6 @@
 	     (ibuffer-switch-to-saved-filter-groups "default")))
 
 (require 'git)
+
+;; == Games ==
+(setq tetris-score-file "/home/dominik/.emacs.d/tetris-score")

@@ -32,10 +32,10 @@
                                                      (nth 1 blog-data)))
       (if (search-forward-regexp "[^ \n\t]" nil t)
           (progn
-            (beginning-of-buffer)
+            (goto-char (point-min))
             (open-line 1)
             (insert (format "[%s]," (concat (nth 2 blog-data) "/" file-name))))
-        (beginning-of-buffer)
+        (goto-char (point-min))
         (insert (format "[%s]," (concat (nth 2 blog-data) "/" file-name)))))
 
     (with-current-buffer (find-file-noselect entry-file)
@@ -46,7 +46,7 @@
   (interactive)
 
   (save-excursion
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (search-forward "$$" nil t)
       (backward-delete-char 2)
       (let ((start (point))
