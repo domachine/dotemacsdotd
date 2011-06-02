@@ -37,6 +37,8 @@
     (insert (format "[[file:%s][%s]]"
                     (expand-file-name file) link-name))))
 
+(defvar run-command)
+
 (defun launch-run-command ()
   (interactive)
   (unless (and (boundp 'run-command)
@@ -57,3 +59,7 @@
                             (message "%s: %s"
                                      (process-name process)
                                      string)))))
+
+(defun startx ()
+  (interactive)
+  (shell-command-background "startx"))
