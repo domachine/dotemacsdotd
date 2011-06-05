@@ -5,7 +5,8 @@
 (setq org-agenda-files '("/home/dominik/Documents/org/notes.org"
                          "/home/dominik/Documents/org/uni.org"
                          "/home/dominik/Documents/org/projects.org"
-                         "/home/dominik/Documents/org/sofortholz.org"))
+                         "/home/dominik/Documents/org/sofortholz.org"
+                         "~/Documents/org/other.org"))
 
 (setq org-default-notes-file "~/Documents/org/notes.org")
 (org-agenda-to-appt)
@@ -47,3 +48,8 @@
 (setq org-publish-project-alist '(("desktop"
                                    :base-directory "~/Documents/org"
                                    :publishing-directory "~/Documents/org")))
+
+(setq org-file-apps '((auto-mode . emacs)
+                      ("\\.mm\\'" . default)
+                      ("\\.x?html?\\'" . default)
+                      ("\\.pdf\\'" . "DISPLAY=:0 xpdf %s")))
