@@ -38,7 +38,6 @@
  '(newsticker-url-list (quote (("GitHub" "https://github.com/domachine.atom" nil nil nil))))
  '(newsticker-url-list-defaults nil)
  '(org-agenda-include-diary t)
- '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "DISPLAY=:0 xpdf %s"))))
  '(org-startup-with-inline-images t)
  '(scroll-bar-mode nil)
  '(tab-width 4)
