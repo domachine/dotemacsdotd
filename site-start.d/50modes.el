@@ -1,10 +1,11 @@
 ;; == TeX ==
 (add-hook 'LaTeX-mode-hook (lambda () (TeX-PDF-mode)))
 
-(setq TeX-view-program-list (quote (("Epdfview" "epdfview %o"))))
+(setq TeX-view-program-list (quote (("xpdf-display" "DISPLAY=:0 xpdf %o")
+                                    ("xdvi-display" "DISPLAY=:0 xdvi %o"))))
 (setq TeX-view-program-selection '(((output-dvi style-pstricks) "dvips and gv")
-                                   (output-dvi "xdvi")
-                                   (output-pdf "Epdfview")
+                                   (output-dvi "xdvi-display")
+                                   (output-pdf "xpdf-display")
                                    (output-html "xdg-open")))
 
 ;; The pretty cool auctex extension.
