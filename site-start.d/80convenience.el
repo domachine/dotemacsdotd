@@ -18,8 +18,11 @@
 (defun movie-play-at-point ()
   (interactive)
 
-  (org-open-at-point)
-  (let* ((movie-wildcard (concat (expand-file-name dired-directory) "*.avi"))
+  (org-open-at-point t)
+  (message "%s" dired-directory)
+  (let* ((movie-wildcard (concat (expand-file-name dired-directory)
+                                 "*.[fa][lv][vi]"))
+         (process-environment (append process-environment '("DISPLAY=:0")))
          (process (apply 'start-process "mplayer"
                                  ;; (with-current-buffer (get-buffer-create "*Mplayer*")
                                  ;;   (erase-buffer)
@@ -27,7 +30,7 @@
                          nil
                          "mplayer"
                          (file-expand-wildcards movie-wildcard))))
-    (quit-window)))
+    (quit-window t)))
 
 (defun org-link-file (start end file)
   (interactive "r\nfThe file to link with the headline: ")
@@ -51,7 +54,8 @@
 (require 'java-utils)
 
 (defun shell-command-background (command)
-  (interactive "sShell-Command: ")
+  "Fire up a command without associating a buffer with it."
+  (interactive `(,(read-shell-command "Shell-Command: ")))
   (let ((process (start-process-shell-command command nil
                                               command)))
     (set-process-sentinel process
