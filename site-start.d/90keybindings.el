@@ -24,3 +24,5 @@
                   (if prefix
                       (ucs-insert "201F")
                     (ucs-insert "201D"))))
+
+(global-set-key (kbd "C-M-^") 'scroll-other-window-down)
