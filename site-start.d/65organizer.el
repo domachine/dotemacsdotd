@@ -22,7 +22,9 @@
                                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
                                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 
-                                 ("article" "\\documentclass[11pt]{article}"
+                                 ("article" "\\documentclass[11pt]{article}
+\\usepackage[utf-8]{inputenc}
+\\usepackage[T1]{fontenc}"
                                   ("\\section{%s}" . "\\section*{%s}")
                                   ("\\subsection{%s}" . "\\subsection*{%s}")
                                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
