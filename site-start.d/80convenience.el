@@ -67,3 +67,6 @@
 (defun startx ()
   (interactive)
   (shell-command-background "startx"))
+
+;; Launch emacs editing server.
+(server-start)
