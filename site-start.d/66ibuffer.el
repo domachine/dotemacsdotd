@@ -49,9 +49,10 @@
                     (mode . python-mode)))
          ("PHP" (or
                  (name . "^.*\\.php$")))
+         ("C" (or
+               (mode . c-mode)))
          ("C++" (or
-                 (name . "^.*\\.cpp$")
-                 (name . "^.*\\.hpp$")))
+                 (mode . c++-mode)))
          ("Java" (or
                   (mode . java-mode)))
          ("TeX" (or

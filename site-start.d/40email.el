@@ -6,3 +6,6 @@
 (setq smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil)))
 
 (setq display-time-mail-file "/var/spool/mail/dominik")
+
+(setq rmail-delete-after-output t)
+(setq rmail-file-name "~/Mail/RMAIL")

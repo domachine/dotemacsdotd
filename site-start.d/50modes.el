@@ -89,3 +89,5 @@
           (lambda ()
             (if (eq major-mode 'emacs-lisp-mode)
                 (byte-compile-file (buffer-file-name)))))
+
+(add-hook 'dired-mode-hook 'dired-omit-mode)
