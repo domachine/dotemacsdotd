@@ -1,5 +1,9 @@
 (require 'eclipse-exporter)
 
+(defvar run-command)
+
+(defvar java-project-buffer nil)
+
 (defvar java-project-path
   nil
   "The name of the java project.")
@@ -46,7 +50,9 @@
 
   (interactive "DProject-path: ")
   (unless (file-directory-p project-path)
-    (signal 'wrong-type-argument '(file-directory-p project-path)))
+    (if (file-exists-p project-path)
+        (signal 'wrong-type-argument '(file-directory-p project-path))
+      (make-directory project-path)))
 
   (setq project-path (expand-file-name project-path))
 
@@ -137,8 +143,8 @@
           (set-window-buffer (selected-window) (current-buffer)))
       (with-current-buffer (find-file-noselect class-file)
         (erase-buffer)
-        (insert-file class-template)
-        (beginning-of-buffer)
+        (insert-file-contents class-template)
+        (goto-char 1)
         (make-local-variable 'compile-command)
         (make-local-variable 'run-command)
 
@@ -168,7 +174,7 @@
                 ((string-equal (match-string 1) "PACKAGE_STMT")
                  (replace-match package-stmt t))))
 
-        (beginning-of-buffer)
+        (goto-char 1)
         (when (search-forward "${CURSOR}" nil t)
           (replace-match ""))
 
@@ -264,7 +270,7 @@
          (lambda (process state)
            (let ((class-buffer (current-buffer)))
              (with-current-buffer (process-buffer process)
-               (beginning-of-buffer)
+               (goto-char 1)
                (let ((start (re-search-forward (format "\n%s,[0-9]+\npublic +class +%s"
                                                        class-file class-name) nil t))
                      (end (save-excursion
