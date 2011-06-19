@@ -68,5 +68,13 @@
   (interactive)
   (shell-command-background "startx"))
 
+(defun kill-buffer-other-window ()
+  "Kills the buffer in the next window."
+  (interactive)
+  (let ((buffer (window-buffer (next-window))))
+    (kill-buffer buffer)))
+
+(global-set-key (kbd "C-x 4 k") 'kill-buffer-other-window)
+
 ;; Launch emacs editing server.
 (server-start)
