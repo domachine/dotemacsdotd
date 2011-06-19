@@ -12,10 +12,7 @@
 (org-agenda-to-appt)
 
 (setq org-export-latex-classes '(("scrartcl" "\\documentclass{scrartcl}
-\\usepackage[utf8]{inputenc}
-\\usepackage[ngerman]{babel}
-\\usepackage[T1]{fontenc}
-\\usepackage{graphicx}"
+\\usepackage[ngerman]{babel}"
                                   ("\\section{%s}" . "\\section*{%s}")
                                   ("\\subsection{%s}" . "\\subsection*{%s}")
                                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
