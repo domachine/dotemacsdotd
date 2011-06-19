@@ -3,6 +3,9 @@
 
 (setq custom-file (concat user-emacs-directory "site-start.d/99custom.el"))
 
+;; Launch emacs editing server.
+(server-start)
+
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

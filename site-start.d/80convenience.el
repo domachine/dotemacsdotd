@@ -75,6 +75,3 @@
     (kill-buffer buffer)))
 
 (global-set-key (kbd "C-x 4 k") 'kill-buffer-other-window)
-
-;; Launch emacs editing server.
-(server-start)
