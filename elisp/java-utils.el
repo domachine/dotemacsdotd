@@ -48,7 +48,7 @@
 (defun java-project-open (project-path)
   "Open an existing or empty project."
 
-  (interactive "DProject-path: ")
+  (interactive "GProject-path: ")
   (unless (file-directory-p project-path)
     (if (file-exists-p project-path)
         (signal 'wrong-type-argument '(file-directory-p project-path))
