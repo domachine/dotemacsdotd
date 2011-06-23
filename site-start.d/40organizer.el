@@ -9,3 +9,13 @@
 
 (setq rmail-delete-after-output t)
 (setq rmail-file-name "~/Mail/RMAIL")
+
+;; == BBDB ==
+(require 'bbdb)
+(bbdb-initialize)
+
+;; == Diary / Calendar ==
+(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
+(add-hook 'diary-list-entries-hook 'diary-sort-entries t)
+
+(add-to-list 'auto-mode-alist '("\\*message\\*\\-[0-9-]+$" . message-mode))

@@ -57,4 +57,13 @@
       (org-insert-heading-respect-content)
     (org-insert-heading)))
 
+;; Keybindings
 (define-key org-mode-map (kbd "M-<RET>") 'my-org-insert-heading)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(global-set-key (kbd "C-c C-r") 'org-remember)
+
+;; Autoload entries
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))

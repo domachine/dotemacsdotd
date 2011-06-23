@@ -6,7 +6,7 @@
 
 (setq fstab-short-cuts
       '(usb "/dev/sdb"
-        cd  "/dev/scd0"))
+        cd "/dev/scd0"))
 
 (require 'burn)
 
@@ -15,15 +15,6 @@
 
 ;; == Remember ==
 (org-remember-insinuate)
-
-;; == BBDB ==
-(require 'bbdb)
-(bbdb-initialize)
-;;(add-hook 'rmail-mode-hook 'bbdb-insinuate-rmail)
-
-;; == Diary / Calendar ==
-(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
-(add-hook 'diary-list-entries-hook 'diary-sort-entries t)
 
 ;; == Ftputils ==
 (autoload 'ftp-upload-file-list "ftputils" "Ftp-Utils" "sBookmark: ")
@@ -37,7 +28,7 @@
 
 ;; == War driving ==
 ;; (autoload 'launch-war-drive-mode "war-drive"
-;;   "Turn emacs into a real war-driving tool to sniff all surrounding
+;; "Turn emacs into a real war-driving tool to sniff all surrounding
 ;; http requests in order to parse out the cookies they carry." t)
 
 ;; == Eclipse exporter ==
@@ -46,15 +37,6 @@
 
 ;; == W3M ==
 (require 'w3m)
-
-;; == MPD ==
-;;(require 'mpc)
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
-
-(add-hook 'emms-player-started-hook 'emms-show)
-
 
 ;; == Blog tools ==
 (setq website-blogs '((news "~/Workspace/homepage"
@@ -66,21 +48,21 @@
 
 (require 'website-utils)
 
-;; == GNUPlot ==
-(autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
-(autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
-
-;; == IBuffer ==
-;; Replace Buffer list with Ibuffer
-(add-hook 'ibuffer-mode-hook
-	  (lambda ()
-	    (ibuffer-switch-to-saved-filter-groups "default")))
-(add-hook 'ibuffer-mode-hook
-	  '(lambda ()
-	     (ibuffer-auto-mode 1)
-	     (ibuffer-switch-to-saved-filter-groups "default")))
-
 (require 'git)
 
 ;; == Games ==
 (setq tetris-score-file "/home/dominik/.emacs.d/tetris-score")
+
+;; == PHP ==
+(require 'php-mode)
+
+;; == Haskell ==
+(load "haskell-mode/haskell-site-file")
+
+;; == Elisp ==
+(add-hook 'after-save-hook
+          (lambda ()
+            (if (eq major-mode 'emacs-lisp-mode)
+                (byte-compile-file (buffer-file-name)))))
+
+(add-hook 'dired-mode-hook 'dired-omit-mode)
