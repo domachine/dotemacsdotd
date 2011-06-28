@@ -53,16 +53,4 @@
 ;; == Games ==
 (setq tetris-score-file "/home/dominik/.emacs.d/tetris-score")
 
-;; == PHP ==
-(require 'php-mode)
-
-;; == Haskell ==
-(load "haskell-mode/haskell-site-file")
-
-;; == Elisp ==
-(add-hook 'after-save-hook
-          (lambda ()
-            (if (eq major-mode 'emacs-lisp-mode)
-                (byte-compile-file (buffer-file-name)))))
-
 (add-hook 'dired-mode-hook 'dired-omit-mode)

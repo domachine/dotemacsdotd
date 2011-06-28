@@ -1,12 +1,12 @@
 (require 'ibuffer)
 
 (add-hook 'ibuffer-mode-hook
-(lambda ()
-(ibuffer-switch-to-saved-filter-groups "default")))
-(add-hook 'ibuffer-mode-hook
-'(lambda ()
-(ibuffer-auto-mode 1)
-(ibuffer-switch-to-saved-filter-groups "default")))
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-switch-to-saved-filter-groups "default")))
+
+(setq ibuffer-expert t)
+(setq ibuffer-show-empty-filter-groups nil)
 
 (setq ibuffer-saved-filter-groups
       '(("default"
@@ -40,6 +40,8 @@
          ("Git" (or
                  (name . "^\\*git\\-[a-zA-Z0-9\\-]+\\*<?[0-9]*>?$")
                  (name . "^\\*vc\\*")))
+         ("SSH" (or
+                 (filename . "^\\/\\(ssh\\|sftp\\):.*")))
          ("Customize" (or
                        (mode . Custom-mode)))
          ("Help" (or
