@@ -10,52 +10,59 @@
 
 (setq ibuffer-saved-filter-groups
       '(("default"
-         ("Planner" (or
-                     (name . "^\\*Calendar\\*$")
-                     (name . "^\\*Fancy Diary Entries\\*$")
-                     (mode . diary-mode)
-                     (mode . muse-mode)))
-         ("Mail" (or (mode . message-mode)
-                     (mode . bbdb-mode)
-                     (mode . mail-mode)
-                     (mode . gnus-group-mode)
-                     (mode . gnus-summary-mode)
-                     (mode . gnus-article-mode)
-                     (mode . rmail-mode)
-                     (name . "^\\.bbdb$")
-                     (name . "^\\.newsrc-dribble")))
-         ("Java Project Buffer" (or
-                                 (name . "project.el<?[0-9]*>?$")))
+         ("Emacs" (or
+                   (name . "^\\*scratch\\*$")
+                   (name . "^\\*Messages\\*$")
+                   (name . "^\\*Buffer List\\*$")
+                   (name . "^\\*Completions\\*$")))
+         ("Compilation" (or
+                         (name . "^\\*compilation\\*<?[0-9]*>?$")
+                         (name . "^\\*Compile\\-")))
          ("Command Output" (name . "^.* output\\*$"))
-         ("Shell" (or
-                   (mode . shell-mode)
-                   (mode . term-mode)))
-         ("Man" (or
-                 (mode . Man-mode)))
-         ("NetworkUtil" (or
-                         (mode . net-utils-mode)
-                         (name . "^\\*DNS Lookup")))
          ("W3M" (or
                  (mode . w3m-mode)))
+         ("Shell" (or
+                   (mode . shell-mode)
+                   (mode . eshell-mode)
+                   (mode . term-mode)))
+         ("Tramp" (or
+                   (name . "^\\*tramp\\/")))
          ("Git" (or
                  (name . "^\\*git\\-[a-zA-Z0-9\\-]+\\*<?[0-9]*>?$")
                  (name . "^\\*vc\\*")))
-         ("SSH" (or
-                 (filename . "^\\/\\(ssh\\|sftp\\):.*")))
          ("Customize" (or
                        (mode . Custom-mode)))
          ("Help" (or
                   (mode . help-mode)
                   (mode . Info-mode)))
-         ("*Compilation*" (or
-                           (name . "^\\*compilation\\*<?[0-9]*>?$")
-                           (name . "^\\*Compile\\-")))
-         ("*Emacs*" (or
-                     (name . "^\\*scratch\\*$")
-                     (name . "^\\*Messages\\*$")
-                     (name . "^\\*Buffer List\\*$")
-                     (name . "^\\*Completions\\*$")))
-         ("Organizer" (or
+         ("Planner" (or
+                     (name . "^\\*Calendar\\*$")
+                     (name . "^\\*Fancy Diary Entries\\*$")
+                     (mode . diary-mode)
+                     (mode . muse-mode)
+                     (mode . org-agenda-mode)))
+         ("Mail" (or (mode . message-mode)
+;;                     (mode . bbdb-mode)
+                     (mode . mail-mode)
+                     (mode . gnus-group-mode)
+                     (mode . gnus-summary-mode)
+                     (mode . gnus-article-mode)
+                     (mode . rmail-mode)
+;;                     (name . "^\\.bbdb$")
+                     (name . "^\\.newsrc-dribble")))
+         ("BBDB" (or
+                  (mode . bbdb-mode)
+                  (name . "^\\.bbdb$")))
+         ("Java Project Buffer" (or
+                                 (name . "project.el<?[0-9]*>?$")))
+         ("Man" (or
+                 (mode . Man-mode)))
+         ("DocView" (or
+                     (mode . doc-view-mode)))
+         ("NetworkUtil" (or
+                         (mode . net-utils-mode)
+                         (name . "^\\*DNS Lookup")))
+         ("Org" (or
                        (mode . org-mode)))
          ("Python" (or
                     (mode . python-mode)))
