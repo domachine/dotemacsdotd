@@ -2,10 +2,11 @@
 (require 'org-latex)
 (require 'org-install)
 
-(setq org-agenda-files '("/home/dominik/Documents/org/notes.org"
-                         "/home/dominik/Documents/org/uni.org"
-                         "/home/dominik/Documents/org/projects.org"
-                         "/home/dominik/Documents/org/sofortholz.org"
+(setq org-agenda-files '("~/Documents/org/notes.org"
+                         "~/Documents/org/uni.org"
+                         "~/Documents/org/projects.org"
+                         "~/Documents/org/sofortholz.org"
+                         "~/Documents/org/x-act.org"
                          "~/Documents/org/other.org"))
 
 (setq org-default-notes-file "~/Documents/org/notes.org")
