@@ -10,13 +10,14 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(battery-mode-line-format "  [%b%p%%, remaining: %t]")
+ '(battery-mode-line-format "  [%b%p%%, %t]")
  '(cal-tex-diary t)
  '(calendar-mark-diary-entries-flag t)
  '(diary-display-function (quote diary-fancy-display))
  '(dired-omit-files "^#\\|^\\.[^\\.].+$")
  '(display-battery-mode t)
  '(display-time-day-and-date t)
+ '(display-time-format "%D %l:%M%p")
  '(display-time-mode t)
  '(emms-source-file-default-directory "~/Music/")
  '(indent-tabs-mode nil)
