@@ -53,6 +53,9 @@
          ("BBDB" (or
                   (mode . bbdb-mode)
                   (name . "^\\.bbdb$")))
+         ("Calc" (or
+                  (mode . calc-mode)
+                  (mode . calc-trail-mode)))
          ("Java Project Buffer" (or
                                  (name . "project.el<?[0-9]*>?$")))
          ("Man" (or
