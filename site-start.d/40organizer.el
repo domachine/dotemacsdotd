@@ -1,3 +1,5 @@
+(require 'rmail)
+
 (setq user-mail-address "dominik.burgdoerfer@googlemail.com")
 (setq smtpmail-auth-credentials "/home/dominik/.authinfo")
 (setq smtpmail-default-smtp-server "smtp.gmail.com")
@@ -9,6 +11,10 @@
 
 (setq rmail-delete-after-output t)
 (setq rmail-file-name "~/Mail/RMAIL")
+
+(setq rmail-output-file-alist
+      '(("^From: \"[^\"]+\" <\\(update\\|notification\\)\\+[^@]+@facebookmail.com>$" .
+         "~/Mail/FACEBOOK")))
 
 ;; == BBDB ==
 (require 'bbdb)
