@@ -19,6 +19,9 @@
         ("[xX][\\-_][aA][cC][tT]" . "~/Mail/X_ACT")
         ("^From: Campact <info@campact.de>$" . "~/Mail/CAMPACT")))
 
+(add-hook 'rmail-mode-hook
+          'rmail-summary)
+
 ;; == BBDB ==
 (require 'bbdb)
 (bbdb-initialize)
