@@ -1,7 +1,7 @@
 (require 'rmail)
 
 (setq user-mail-address "dominik.burgdoerfer@googlemail.com")
-(setq smtpmail-auth-credentials "/home/dominik/.authinfo")
+(setq smtpmail-auth-credentials "~/.authinfo")
 (setq smtpmail-default-smtp-server "smtp.gmail.com")
 (setq smtpmail-local-domain "gmail.com")
 (setq smtpmail-smtp-service 587)
@@ -14,7 +14,10 @@
 
 (setq rmail-output-file-alist
       '(("^From: \"[^\"]+\" <\\(update\\|notification\\)\\+[^@]+@facebookmail.com>$" .
-         "~/Mail/FACEBOOK")))
+         "~/Mail/FACEBOOK")
+        ("^To: studierende@uni-ulm.de" . "~/Mail/UNI")
+        ("[xX][\\-_][aA][cC][tT]" . "~/Mail/X_ACT")
+        ("^From: Campact <info@campact.de>$" . "~/Mail/CAMPACT")))
 
 ;; == BBDB ==
 (require 'bbdb)
