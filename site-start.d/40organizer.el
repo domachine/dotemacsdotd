@@ -13,11 +13,17 @@
 (setq rmail-file-name "~/Mail/RMAIL")
 
 (setq rmail-output-file-alist
-      '(("^From: \"[^\"]+\" <\\(update\\|notification\\)\\+[^@]+@facebookmail.com>$" .
+      '(("<\\(update\\|notification\\)\\+[^@]+@facebookmail.com>" .
          "~/Mail/FACEBOOK")
-        ("^To: studierende@uni-ulm.de" . "~/Mail/UNI")
+        ("^To: .?studierende@uni-ulm.de" . "~/Mail/UNI")
         ("[xX][\\-_][aA][cC][tT]" . "~/Mail/X_ACT")
         ("^From: Campact <info@campact.de>$" . "~/Mail/CAMPACT")))
+
+;; Little hack to get a summary on every rmail-call.
+(defadvice rmail-quit (around rmail-kill-on-exit activate)
+  (let ((my-rmail-buffer (current-buffer)))
+    ad-do-it
+    (kill-buffer my-rmail-buffer)))
 
 (add-hook 'rmail-mode-hook
           'rmail-summary)
