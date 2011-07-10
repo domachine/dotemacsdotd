@@ -75,3 +75,7 @@
     (kill-buffer buffer)))
 
 (global-set-key (kbd "C-x 4 k") 'kill-buffer-other-window)
+
+(add-to-list 'kill-emacs-query-functions
+             (lambda ()
+               (y-or-n-p "Do you really want to exit Emacs? ")))
