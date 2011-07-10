@@ -86,7 +86,7 @@
          ("Lisp" (or
                   (mode . emacs-lisp-mode)
                   (mode . lisp-mode)))
-         ("dired" (mode . dired-mode)))))
+         ("Dired" (mode . dired-mode)))))
 
 
 ;; Install keybinding for ibuffer (Replacing buffer-list)
