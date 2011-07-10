@@ -71,6 +71,10 @@
                     (mode . python-mode)))
          ("PHP" (or
                  (name . "^.*\\.php$")))
+         ("HTML" (or
+                  (mode . html-mode)))
+         ("YAML" (or
+                  (mode . yaml-mode)))
          ("C" (or
                (mode . c-mode)))
          ("C++" (or
