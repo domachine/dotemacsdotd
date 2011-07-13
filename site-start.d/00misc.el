@@ -3,3 +3,7 @@
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/emms")
 (add-to-list 'load-path "~/shime")
+
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-matrix)
