@@ -233,6 +233,7 @@ the indentation.  Otherwise it retains the same position on the line"
 ;;
 ;; CMake mode startup function.
 ;;
+;;;###autoload
 (defun cmake-mode ()
   "Major mode for editing CMake listfiles."
   (interactive)

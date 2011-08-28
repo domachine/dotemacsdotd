@@ -50,6 +50,8 @@
                      (mode . rmail-mode)
 ;;                     (name . "^\\.bbdb$")
                      (name . "^\\.newsrc-dribble")))
+         ("ERC" (or
+                 (mode . erc-mode)))
          ("BBDB" (or
                   (mode . bbdb-mode)
                   (name . "^\\.bbdb$")))
@@ -66,9 +68,17 @@
                          (mode . net-utils-mode)
                          (name . "^\\*DNS Lookup")))
          ("Org" (or
-                       (mode . org-mode)))
+                 (mode . org-mode)))
+         ("CMake" (or
+                   (mode . cmake-mode)))
          ("Python" (or
                     (mode . python-mode)))
+         ("Shell-script" (or
+                   (mode . shell-script-mode)
+                   (mode . sh-mode)))
+         ("Perl" (or
+                  (mode . perl-mode)
+                  (mode . cperl-mode)))
          ("PHP" (or
                  (name . "^.*\\.php$")))
          ("HTML" (or
@@ -81,6 +91,8 @@
                  (mode . c++-mode)))
          ("Java" (or
                   (mode . java-mode)))
+         ("Javascript" (or
+                        (mode . js-mode)))
          ("TeX" (or
                  (mode . latex-mode)))
          ("Lisp" (or

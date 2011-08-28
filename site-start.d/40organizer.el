@@ -21,7 +21,8 @@
 
 ;; Little hack to get a summary on every rmail-call.
 (defadvice rmail-quit (around rmail-kill-on-exit activate)
-  (let ((my-rmail-buffer (current-buffer)))
+  (let ((my-rmail-buffer (gensym)))
+    (setf my-rmail-buffer (current-buffer))
     ad-do-it
     (kill-buffer my-rmail-buffer)))
 

@@ -21,7 +21,6 @@
                                  program-path)))
 
     (message program-path)
-    (let ((show-win (split-window-vertically)))
-      (set-window-buffer show-win output-buffer))))
+    (display-buffer output-buffer)))
 
 (provide 'eclipse-exporter)

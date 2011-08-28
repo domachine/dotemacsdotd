@@ -1,9 +1,12 @@
 (require 'xmltok)
 (require 'xml)
 (require 'shell)
+(require 'json)
 
-(defvar youtube-stream-handler 'browse-url
+(defvar youtube-stream-handler (function browse-url)
   "The function to call with the discovered video-url.")
+
+(defvar youtube-feed nil)
 
 (defun youtube-clear-cache ()
   (interactive)
@@ -41,22 +44,21 @@
                    (format "mplayer -fs %s"
                            (shell-quote-argument temp-file))))))
 
-(setq youtube-stream-handler 'download-video)
+;;(setq youtube-stream-handler (function browse-url))
 
 ;;;###autoload
 (defun youtube-video-url (addr)
   (interactive "sUrl: ")
   (message "Retrieving url ...")
-  (let (video-url)
+  (let ((video-url nil))
     (with-temp-buffer
       (call-process-shell-command (format "wget -O - %s 2>/dev/null"
                                           (shell-quote-argument addr))
-                    nil (current-buffer) nil)
+                                  nil (current-buffer) nil)
 
-      (beginning-of-buffer)
-      (search-forward-regexp "|\\(http:[^|]+id=[^,|]+\\)|")
-      (setq video-url (replace-regexp-in-string (match-string 1) "\\\\/" "/"))
-      (setq video-url (replace-regexp-in-string video-url "\\\\u0026" "&"))
+      (goto-char (point-min))
+      (when (search-forward-regexp "|\\(http:[^|]+id=[^,|]+\\)|")
+        (setq video-url (json-read-from-string (format "\"%s\"" (match-string 1)))))
 
       (funcall youtube-stream-handler video-url))))
 
@@ -89,7 +91,7 @@
   (define-key youtube-mode-map (kbd "n") 'youtube-next-page)
   (define-key youtube-mode-map (kbd "p") 'youtube-previous-page)
   (define-key youtube-mode-map (kbd "s") 'youtube-search)
-  (define-key youtube-mode-map (kbd "s") 'youtube-search)
+  ;;(define-key youtube-mode-map (kbd "s") 'youtube-search)
   (define-key youtube-mode-map (kbd "q") 'kill-current-buffer))
 
 (defun xml-node-first-child (node)
@@ -101,11 +103,11 @@
       (error "Download failed."))
 
     (with-current-buffer buffer
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (while (search-forward "'" nil t)
         (replace-match "\""))
 
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (unless (xmltok-forward)
         (error "Empty response received"))
       (let ((output-buffer (get-buffer-create "*Youtube*"))
@@ -178,7 +180,7 @@
           (insert (format "\n* *Total*: %s, *Index*: %s"
                           (gethash 'total-results feed-object)
                           (gethash 'start-index feed-object)))
-          (beginning-of-buffer)
+          (goto-char (point-min))
           (youtube-mode)
           (setq youtube-feed feed-object))
         (set-window-buffer (selected-window) output-buffer)

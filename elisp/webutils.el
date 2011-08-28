@@ -1,5 +1,6 @@
 (require 'url)
 
+;;;###autoload
 (defun find-remote-file (addr)
   (interactive "sUrl: ")
   (message "Retrieving url ...")
@@ -16,6 +17,7 @@
 
 (require 'w3m)
 
+;;;###autoload
 (defun url-decode (addr)
   (interactive "sUrl: ")
   (with-current-buffer (get-buffer-create "*scratch*")

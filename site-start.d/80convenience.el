@@ -1,3 +1,6 @@
+(require 'sgml-mode)
+(require 'xmltok)
+
 ;; Make it more efficient to navigate between windows.
 (defun other-window-backward (n)
   (interactive "p")
@@ -15,22 +18,14 @@
 					  (process-list)) () t)))
   (delete-process p))
 
-(defun movie-play-at-point ()
+(defun movie-fink-play-at-point ()
   (interactive)
 
-  (org-open-at-point t)
-  (message "%s" dired-directory)
-  (let* ((movie-wildcard (concat (expand-file-name dired-directory)
-                                 "*.[fa][lv][vi]"))
-         (process-environment (append process-environment '("DISPLAY=:0")))
-         (process (apply 'start-process "mplayer"
-                                 ;; (with-current-buffer (get-buffer-create "*Mplayer*")
-                                 ;;   (erase-buffer)
-                                 ;;   (current-buffer))
-                         nil
-                         "mplayer"
-                         (file-expand-wildcards movie-wildcard))))
-    (quit-window t)))
+  (let ((movie-files (org-entry-get-multivalued-property nil "Files")))
+    (dolist (movie movie-files)
+      (message "Playing: %s" movie)
+      (call-process-shell-command (concat "mplayer "
+                                          (shell-quote-argument (file-truename movie)))))))
 
 (defun org-link-file (start end file)
   (interactive "r\nfThe file to link with the headline: ")
@@ -53,16 +48,32 @@
 ;; == Java utils ==
 (require 'java-utils)
 
-(defun shell-command-background (command)
+(defun shell-command-background (command &optional file)
   "Fire up a command without associating a buffer with it."
-  (interactive `(,(read-shell-command "Shell-Command: ")))
-  (let ((process (start-process-shell-command command nil
-                                              command)))
+  (interactive `(,(read-shell-command "Shell-Command: ")
+                 ,(if current-prefix-arg
+                      (if (dired-get-filename t)
+                          (dired-get-filename t)
+                        (error "No file marked"))
+                    nil)))
+  (message file)
+  (let* ((command (if file
+                      (concat command " "
+                              (shell-quote-argument file))
+                    command))
+         (process (start-process-shell-command command nil command)))
+
     (set-process-sentinel process
                           (lambda (process string)
                             (message "%s: %s"
                                      (process-name process)
                                      string)))))
+
+(define-key dired-mode-map
+  (kbd "*") #'(lambda ()
+                (interactive)
+                (let ((current-prefix-arg t))
+                  (call-interactively #'shell-command-background))))
 
 (defun startx ()
   (interactive)
@@ -79,3 +90,19 @@
 (add-to-list 'kill-emacs-query-functions
              (lambda ()
                (y-or-n-p "Do you really want to exit Emacs? ")))
+
+(defun insert-file-path (path)
+  (interactive "fFile-Path: ")
+  (insert path))
+
+(defun xml-strip-tags ()
+  (interactive)
+  (while (char-after)
+    (message "char-after: %s" (char-to-string (char-after)))
+    (if (equal (char-to-string (char-after)) "<")
+        (condition-case ex
+            (sgml-delete-tag 1)
+          nil)
+      (condition-case ex
+          (xmltok-forward)
+        nil))))

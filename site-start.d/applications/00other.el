@@ -24,7 +24,10 @@
 (autoload 'youtube-search "youtube" "YouTube search" "sSearch query: ")
 
 ;; == Webutils ==
-(require 'webutils)
+(autoload 'find-remote-file "webutils"
+  "Useful function for opening remote files." "sUrl: ")
+(autoload 'url-decode "webutils"
+  "Decode urls easily." "sUrl: ")
 
 ;; == War driving ==
 ;; (autoload 'launch-war-drive-mode "war-drive"

@@ -1,2 +1,3 @@
 ;; == PHP ==
-(require 'php-mode)
+(autoload 'php-mode (concat user-emacs-directory
+                            "elisp/php-mode.el") nil t)

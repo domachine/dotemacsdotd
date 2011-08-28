@@ -80,8 +80,7 @@
             (process-send-region process 1 (point)))
 
           ;; Show the result.
-          (let ((win (selected-window)))
-            (set-window-buffer win process-buffer)))
+          (display-buffer process-buffer))
 
         ;; Clean up.
         (kill-buffer output-buffer)))))
