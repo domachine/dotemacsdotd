@@ -1,6 +1,6 @@
 ;; == Load path ==
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
+(add-to-list 'load-path (concat user-emacs-directory "elisp/bbdb"))
 (add-to-list 'load-path (concat user-emacs-directory "elisp/org-mode"))
 (add-to-list 'load-path (concat user-emacs-directory "elisp/w3m"))
 
