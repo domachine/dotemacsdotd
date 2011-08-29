@@ -1,6 +1,7 @@
 ;;; w3m-namazu.el --- The add-on program to search files with Namazu.
 
-;; Copyright (C) 2001, 2002, 2003 TSUCHIYA Masatoshi <tsuchiya@namazu.org>
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2007, 2009
+;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 ;; Keywords: w3m, WWW, hypermedia, namazu
@@ -18,9 +19,9 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 
 ;;; Commentary:
@@ -45,6 +46,10 @@
 
 
 ;;; Code:
+
+(eval-when-compile
+  (require 'cl))
+
 (require 'w3m)
 
 (eval-and-compile
@@ -82,11 +87,11 @@
   :type '(integer :size 0))
 
 (defconst w3m-namazu-default-index-customize-spec
-  '(` (choice
-       (const :tag "No default index" nil)
-       (,@ (mapcar (lambda (x) (list 'const (car x)))
-		   w3m-namazu-index-alist))
-       (directory :format "Index directory: %v\n" :size 0))))
+  '`(choice
+     (const :tag "No default index" nil)
+     ,@(mapcar (lambda (x) (list 'const (car x)))
+	       w3m-namazu-index-alist)
+     (directory :format "Index directory: %v\n" :size 0)))
 
 (defcustom w3m-namazu-index-alist
   (when (boundp 'namazu-dir-alist)
@@ -105,7 +110,7 @@
 		  :format "%v%i\n" :indent 8
 		  (directory :format "Index directory: %v\n" :size 0)))))
   :set (lambda (symbol value)
-	 (set-default symbol value)
+	 (custom-set-default symbol value)
 	 (put 'w3m-namazu-default-index 'custom-type
 	      (eval w3m-namazu-default-index-customize-spec))))
 
@@ -140,7 +145,7 @@ argument."
   :type '(coding-system :size 0))
 
 
-(defsubst w3m-namazu-call-process (index query whence)
+(defun w3m-namazu-call-process (index query whence)
   (setq index (if (assoc index w3m-namazu-index-alist)
 		  (mapcar 'expand-file-name
 			  (cdr (assoc index w3m-namazu-index-alist)))
@@ -163,10 +168,10 @@ argument."
   (let (index query (whence "0"))
     (when (string-match "\\`about://namazu/\\?" url)
       (dolist (s (split-string (substring url (match-end 0)) "&"))
-	(when (string-match "\\`\\(index\\|\\(query\\)\\|\\(whence\\)\\)=" s)
+	(when (string-match "\\`\\(?:index\\|\\(query\\)\\|\\(whence\\)\\)=" s)
 	  (set (cond
-		((match-beginning 2) 'query)
-		((match-beginning 3) 'whence)
+		((match-beginning 1) 'query)
+		((match-beginning 2) 'whence)
 		(t 'index))
 	       (substring s (match-end 0)))))
       (when (zerop (w3m-namazu-call-process (w3m-url-decode-string index)
@@ -200,7 +205,7 @@ argument."
 	    (forward-char -1)
 	    (insert "file://"))
 	  (goto-char (point-min))
-	  (while (re-search-forward "<a href=\"\\(\\?\\)&\\(amp;\\)?whence="
+	  (while (re-search-forward "<a href=\"\\(\\?\\)&\\(?:amp;\\)?whence="
 				    nil t)
 	    (goto-char (match-beginning 1))
 	    (delete-char 1)
@@ -237,7 +242,7 @@ argument."
 (defvar w3m-namazu-query-history nil)
 
 ;;;###autoload
-(defun w3m-namazu (index query)
+(defun w3m-namazu (index query &optional reload)
   "Search indexed files with Namazu."
   (interactive
    (list
@@ -257,14 +262,17 @@ argument."
       (or w3m-namazu-default-index
 	  (car w3m-namazu-index-history)))
     (w3m-search-read-query "Namazu query: " "Namazu query (default %s): "
-			   'w3m-namazu-query-history)))
+			   'w3m-namazu-query-history)
+    current-prefix-arg))
   (unless (stringp index)
     (error "%s" "Index is required"))
   (unless (stringp query)
     (error "%s" "Query is required"))
   (w3m-goto-url (format "about://namazu/?index=%s&query=%s&whence=0"
 			(w3m-url-encode-string index)
-			(w3m-url-encode-string query))))
+			(w3m-url-encode-string query))
+		reload))
 
 (provide 'w3m-namazu)
+
 ;;; w3m-namazu.el ends here

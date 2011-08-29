@@ -1,6 +1,7 @@
 ;;; w3m-perldoc.el --- The add-on program to view Perl documents.
 
-;; Copyright (C) 2001, 2002, 2003 TSUCHIYA Masatoshi <tsuchiya@namazu.org>
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2007
+;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 ;; Keywords: w3m, perldoc
@@ -18,9 +19,9 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
 
 ;;; Commentary:
@@ -57,10 +58,26 @@
 	 (delq nil (delete "" (mapcar (lambda (x) (if (stringp x) x))
 				      (default-value symbol)))))
   :set (lambda (symbol value)
-	 (set-default
+	 (custom-set-default
 	  symbol
 	  (delq nil (delete "" (mapcar (lambda (x) (if (stringp x) x))
 				       value))))))
+
+(defcustom w3m-perldoc-input-coding-system
+  (if (string= "Japanese" w3m-language)
+      'euc-japan
+    (if (w3m-find-coding-system 'utf-8)
+	'utf-8
+      'iso-latin-1))
+  "*Coding system used when writing to `w3m-perldoc-command'."
+  :group 'w3m-perldoc
+  :type '(coding-system :size 0))
+
+(defcustom w3m-perldoc-output-coding-system
+  'undecided
+  "*Coding system used when reading from `w3m-perldoc-command'."
+  :group 'w3m-perldoc
+  :type '(coding-system :size 0))
 
 ;;;###autoload
 (defun w3m-about-perldoc (url &optional no-decode no-cache &rest args)
@@ -72,11 +89,11 @@
 	  (process-environment (copy-sequence process-environment)))
       ;; To specify the place in which pod2html generates its cache files.
       (setenv "HOME" (expand-file-name w3m-profile-directory))
-      (and (zerop (call-process w3m-perldoc-command
-				nil t nil "-u" docname))
-	   (progn
-	     (w3m-static-if (featurep 'xemacs)
-		 (goto-char (point-max)))
+      (and (let ((coding-system-for-read w3m-perldoc-output-coding-system))
+	     (zerop (call-process w3m-perldoc-command
+				  nil t nil "-u" docname)))
+	   (let ((coding-system-for-write w3m-perldoc-input-coding-system)
+		 (coding-system-for-read w3m-perldoc-input-coding-system))
 	     (zerop (apply (function call-process-region)
 			   (point-min) (point-max)
 			   w3m-perldoc-pod2html-command

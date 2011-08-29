@@ -1,6 +1,7 @@
 ;;; mime-w3m.el --- mime-view content filter for text
 
-;; Copyright (C) 2001, 2002, 2003 TSUCHIYA Masatoshi <tsuchiya@namazu.org>
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2009, 2010
+;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
 ;;         Akihiro Arisawa    <ari@mbf.sphere.ne.jp>
@@ -19,28 +20,29 @@
 ;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
+;;; Commentary:
 
-;;; Install:
-
-;; (1) Install SEMI.
-;; (2) Put this file to appropriate directory.
-;; (3) Write these following code to your ~/.emacs or ~/.gnus.
+;; To use this module along with a SEMI-based mail client (e.g.
+;; Wanderlust), add this one to your ~/.emacs file or ~/.wl.el file:
 ;;
-;;        (require 'mime-w3m)
-
+;; (require 'mime-w3m)
 
 ;;; Code:
 
 (eval-when-compile
   (require 'cl)
-  (require 'w3m)
+  ;; mime-parse.el should be loaded before mime.el so as not to make
+  ;; `mime-uri-parse-cid' an autoloaded function to which the byte
+  ;; compiler might issue a nonsense warning.
+  (require 'mime-parse)
   (require 'mime)
-  (defvar mime-setup-enable-inline-html)
+  (require 'w3m)
   (defvar mime-preview-condition)
+  (defvar mime-setup-enable-inline-html)
   (defvar mime-view-mode-default-map))
 
 (eval-and-compile
@@ -123,7 +125,7 @@ by way of `post-command-hook'."
 	   (set-alist 'mime-view-type-subtype-score-alist
 		      '(text . html) 3))))))
 
-(defsubst mime-w3m-setup ()
+(defun mime-w3m-setup ()
   "Setup `mime-w3m' module."
   (require 'w3m)
   (when (eq mime-w3m-display-inline-images 'default)
@@ -141,30 +143,6 @@ by way of `post-command-hook'."
 	     (progn ,@body)
 	   (font-set-face-background 'default color (current-buffer))))
     (cons 'progn body)))
-
-(unless (or (featurep 'xemacs)
-	    (>= emacs-major-version 21))
-  (defvar mime-w3m-mode-map nil
-    "Keymap for text/html part rendered by `mime-w3m-preview-text/html'.
-This map is overwritten by `mime-w3m-local-map-property' based on the
-value of `w3m-minor-mode-map'.  Therefore, in order to add some
-commands to this map, add them to `w3m-minor-mode-map' instead of this
-map."))
-
-(eval-when-compile
-  (defvar mime-w3m-mode-map))
-
-(defsubst mime-w3m-local-map-property ()
-  (if (or (featurep 'xemacs)
-	  (>= emacs-major-version 21))
-      (list 'keymap w3m-minor-mode-map)
-    (list 'local-map
-	  (or mime-w3m-mode-map
-	      (progn
-		(setq mime-w3m-mode-map (copy-keymap w3m-minor-mode-map))
-		(set-keymap-parent mime-w3m-mode-map
-				   mime-view-mode-default-map)
-		mime-w3m-mode-map)))))
 
 ;;;###autoload
 (defun mime-w3m-preview-text/html (entity situation)
@@ -194,20 +172,20 @@ map."))
 			  (mime-entity-content-type entity)
 			  "charset"))
 	     (add-text-properties p (point-max)
-				  (nconc (mime-w3m-local-map-property)
-					 '(text-rendered-by-mime-w3m t))))
+				  (list 'keymap w3m-minor-mode-map
+					'text-rendered-by-mime-w3m t)))
 	 (error (message "%s" err)))))))
 
 (let (current-load-list)
   (defadvice mime-display-message
-    (after mime-w3m-add-local-hook activate compile)
+    (after add-emacs-w3m-functions-to-pre/post-command-hook activate compile)
     "Advised by emacs-w3m.
-Set hooks run arround each command is executed."
+Add some emacs-w3m utility functions to pre/post-command-hook."
     (when (featurep 'w3m)
-      (w3m-add-local-hook 'pre-command-hook
-			  'w3m-store-current-position)
-      (w3m-add-local-hook 'post-command-hook
-			  'mime-w3m-check-current-position))))
+      (w3m-make-local-hook 'pre-command-hook)
+      (w3m-make-local-hook 'post-command-hook)
+      (add-hook 'pre-command-hook 'w3m-store-current-position nil t)
+      (add-hook 'post-command-hook 'mime-w3m-check-current-position nil t))))
 
 (defun mime-w3m-check-current-position ()
   "Run `mime-w3m-after-cursor-move-hook' if the cursor has been moved."
@@ -219,9 +197,6 @@ Set hooks run arround each command is executed."
 				      'text-rendered-by-mime-w3m))))
     (run-hooks 'mime-w3m-after-cursor-move-hook)))
 
-;; To avoid byte-compile warning in `mime-w3m-cid-retrieve'.
-(autoload 'mime-uri-parse-cid "mime-parse")
-
 (defun mime-w3m-cid-retrieve (url &rest args)
   (let ((entity (mime-find-entity-from-content-id
 		 (mime-uri-parse-cid url)
@@ -232,7 +207,12 @@ Set hooks run arround each command is executed."
       (w3m-insert-string (mime-entity-content entity))
       (mime-entity-type/subtype entity))))
 
-(let (current-load-list)
+(dont-compile
+  ;; Arglist varies according to Emacs version.
+  ;; Emacs 21.1~21.4, 23.3, 24, XEmacs, SXEmacs:
+  ;; (kill-new string &optional replace)
+  ;; Emacs 22.1~23.2:
+  ;; (kill-new string &optional replace yank-handler)
   (defadvice kill-new (before strip-keymap-properties-from-kill activate)
     "Advised by emacs-w3m.
 Strip `keymap' or `local-map' properties from a killed string."
