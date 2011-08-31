@@ -1,4 +1,5 @@
 (require 'rmail)
+(require 'cl)
 
 (setq user-mail-address "dominik.burgdoerfer@googlemail.com")
 (setq smtpmail-auth-credentials "~/.authinfo")
