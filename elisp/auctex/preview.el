@@ -355,7 +355,7 @@ LIST consists of TeX dimensions in sp (1/65536 TeX point)."
   :group 'preview-gs
   :type 'string)
 
-(defcustom preview-gs-options '("-q" "-dSAFER" "-dNOPAUSE"
+(defcustom preview-gs-options '("-q" "-dDELAYSAFER" "-dNOPAUSE"
 				"-DNOPLATFONTS" "-dPrinted"
 				"-dTextAlphaBits=4"
 				"-dGraphicsAlphaBits=4")
@@ -1066,14 +1066,21 @@ NONREL is not NIL."
 
 (defun preview-prepare-fast-conversion ()
   "This fixes up all parameters for fast conversion."
-  (let ((file (if (consp (car preview-ps-file))
-		  (if (consp (caar preview-ps-file))
-		      (car (last (caar preview-ps-file)))
-		    (caar preview-ps-file))
-		(car preview-ps-file))))
+  (let* ((file (if (consp (car preview-ps-file))
+		   (if (consp (caar preview-ps-file))
+		       (car (last (caar preview-ps-file)))
+		     (caar preview-ps-file))
+		 (car preview-ps-file)))
+	 (all-files (if (and (consp (car preview-ps-file))
+			     (consp (caar preview-ps-file)))
+			(caar preview-ps-file)
+		      (list file))))
     (setq preview-gs-dsc (preview-dsc-parse file))
     (setq preview-gs-init-string
-	  (concat preview-gs-init-string
+	  (concat (format "{<</PermitFileReading[%s]>> setuserparams \
+.locksafe} stopped pop "
+			  (mapconcat 'preview-ps-quote-filename all-files ""))
+		  preview-gs-init-string
 		  (format "[%s(r)file]aload exch %s .runandhide aload pop "
 			  (preview-ps-quote-filename file)
 			  (preview-gs-dsc-cvx 0 preview-gs-dsc))))))
