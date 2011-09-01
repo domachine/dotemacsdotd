@@ -4,9 +4,11 @@
 (add-to-list 'load-path (concat user-emacs-directory "elisp/org-mode"))
 (add-to-list 'load-path (concat user-emacs-directory "elisp/w3m"))
 
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-matrix)
+(column-number-mode)
+
+;; (require 'color-theme)
+;; (color-theme-initialize)
+;; (color-theme-matrix)
 
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
