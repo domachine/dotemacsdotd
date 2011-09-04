@@ -3,8 +3,13 @@
 (add-to-list 'load-path (concat user-emacs-directory "elisp/bbdb"))
 (add-to-list 'load-path (concat user-emacs-directory "elisp/org-mode"))
 (add-to-list 'load-path (concat user-emacs-directory "elisp/w3m"))
+;;(add-to-list 'load-path (concat user-emacs-directory "elisp/elim/elisp"))
+
 
 (column-number-mode)
+(setq find-file-wildcards t)
+(setq warning-suppress-types
+      `((undo discard-info)))
 
 ;; (require 'color-theme)
 ;; (color-theme-initialize)

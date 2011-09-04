@@ -24,7 +24,7 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(message-send-mail-function (quote smtpmail-send-it))
- '(newsticker-url-list (quote (("GitHub" "https://github.com/domachine.atom" nil nil nil))))
+ '(newsticker-url-list (quote (("Thomas Activity" "https://github.com/loardmalak.atom" nil nil nil))))
  '(newsticker-url-list-defaults nil)
  '(org-agenda-include-diary t)
  '(org-startup-with-inline-images t)
