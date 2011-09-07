@@ -50,6 +50,9 @@
                      (mode . rmail-mode)
 ;;                     (name . "^\\.bbdb$")
                      (name . "^\\.newsrc-dribble")))
+         ("Newsticker" (or
+                        (mode . newsticker-mode)
+                        (name . "^\\.newsticker-cache$")))
          ("ERC" (or
                  (mode . erc-mode)))
          ("BBDB" (or
