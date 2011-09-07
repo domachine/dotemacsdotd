@@ -57,3 +57,10 @@
 (setq tetris-score-file "/home/dominik/.emacs.d/tetris-score")
 
 (add-hook 'dired-mode-hook 'dired-omit-mode)
+
+;; == Newsticker ==
+(require 'newsticker)
+
+(setq newsticker-url-list '(("Thomas Activity" "https://github.com/loardmalak.atom" nil nil nil)))
+(setq newsticker-url-list-defaults nil)
+(setq newsticker-html-renderer 'w3m-region)
