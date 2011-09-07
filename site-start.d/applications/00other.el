@@ -61,6 +61,7 @@
 ;; == Newsticker ==
 (require 'newsticker)
 
-(setq newsticker-url-list '(("Thomas Activity" "https://github.com/loardmalak.atom" nil nil nil)))
+(setq newsticker-url-list '(("Thomas Activity" "https://github.com/loardmalak.atom" nil nil nil)
+                            ("Tagesschau" "http://www.tagesschau.de/newsticker.rdf" nil nil nil)))
 (setq newsticker-url-list-defaults nil)
 (setq newsticker-html-renderer 'w3m-region)
