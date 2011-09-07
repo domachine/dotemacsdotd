@@ -1,8 +1,8 @@
 ;; == TeX ==
 (add-hook 'LaTeX-mode-hook (lambda () (TeX-PDF-mode)))
 
-(setq TeX-view-program-list (quote (("xpdf-display" "DISPLAY=:0 xpdf %o")
-                                    ("xdvi-display" "DISPLAY=:0 xdvi %o"))))
+(setq TeX-view-program-list (quote (("xpdf-display" "xpdf %o")
+                                    ("xdvi-display" "xdvi %o"))))
 (setq TeX-view-program-selection (cond
                                   ((eq system-type 'windows-nt)
                                    '(((output-dvi style-pstricks)
