@@ -10,5 +10,7 @@
                   (if prefix
                       (ucs-insert "201D")
                     (ucs-insert "201E"))))
+(global-set-key (kbd "<f2>") #'newsticker-plainview)
+(global-set-key (kbd "<f3>") #'newsticker-treeview)
 
 (global-set-key (kbd "C-M-^") 'scroll-other-window-down)
