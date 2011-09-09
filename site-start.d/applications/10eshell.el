@@ -5,7 +5,3 @@
 (setq eshell-smart-space-goes-to-end t)
 
 (setq eshell-banner-message "** Entering hacking zone :-) ... ** \n\n")
-
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (eshell-smart-initialize)))
