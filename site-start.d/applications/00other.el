@@ -59,6 +59,4 @@
 (add-hook 'dired-mode-hook 'dired-omit-mode)
 
 ;; == Newsticker ==
-(require 'newsticker)
-
 (setq newsticker-html-renderer 'w3m-region)
