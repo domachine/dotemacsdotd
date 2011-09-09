@@ -19,4 +19,6 @@
 
 ;; The pretty cool auctex extension.
 (load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+
+;; I don't need the preview anymore because I'm using Emacs in terminal.
+;;(load "preview-latex.el" nil t t)
