@@ -27,3 +27,9 @@
                   (if prefix
                       (ucs-insert "201D")
                     (ucs-insert "201E"))))
+
+(defun screen ()
+  "Launches terminal with screen."
+
+  (interactive)
+  (term "/usr/bin/screen"))
