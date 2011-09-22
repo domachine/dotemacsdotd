@@ -66,12 +66,6 @@ if the feature is existent."
 (site-load-file "keybindings.el")
 (site-load-file "hooks.el")
 
-;; Use color theme if existent.
-(load-feature 'color-theme
-              (color-theme-initialize)
-              (color-theme-matrix))
-
-
 ;; === Emacs core settings ===
 ;; Launch emacs editing server.
 (server-start)
