@@ -51,7 +51,7 @@ if the feature is existent."
 
 (do-if-feature-exists 'w3m
                       (setq newsticker-html-renderer 'w3m-region)
-                      (autoload 'w3m "w3m" nil t)
+                      (autoload 'w3m "w3m-load" nil t)
                       (autoload 'w3m-region "w3m")
                       (autoload 'w3m-toggle-inline-image "w3m"))
 
@@ -63,7 +63,7 @@ if the feature is existent."
 ;; Load include files.
 (site-load-file "custom.el")
 (site-load-file "email.el")
-(site-load-file "keybindings.el")
+(site-load-file "shortcuts.el")
 (site-load-file "hooks.el")
 
 ;; === Emacs core settings ===
