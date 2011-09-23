@@ -7,3 +7,14 @@
                            (lambda nil (c-toggle-auto-state 1))))
 
 (add-hook 'dired-mode-hook 'dired-omit-mode)
+
+(add-hook 'css-mode-hook
+          (lambda ()
+            (font-lock-add-keywords
+             nil
+             '(("#[abcdef[:digit:]]\\{6\\}"
+                (0 (put-text-property
+                    (match-beginning 0)
+                    (match-end 0)
+                    'face (list :background 
+                                (match-string-no-properties 0)))))))))
