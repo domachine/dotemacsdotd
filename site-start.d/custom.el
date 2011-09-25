@@ -29,7 +29,6 @@
  '(display-time-day-and-date t)
  '(display-time-format "%D %l:%M%p")
  '(display-time-mode t)
- '(emms-source-file-default-directory "~/Music/")
  '(find-file-wildcards t)
  '(ibuffer-expert t)
  '(ibuffer-mode-hook (quote ((lambda nil (ibuffer-auto-mode 1) (ibuffer-switch-to-saved-filter-groups "default")))))
