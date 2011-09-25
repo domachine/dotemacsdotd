@@ -2,6 +2,10 @@
 (defmacro user-file (file)
   `(concat (expand-file-name user-emacs-directory) ,file))
 
+(defmacro site-load-file (file)
+  `(load-file ,(concat (expand-file-name user-emacs-directory) "site-start.d/" file)))
+
+
 ;; Set load-path.
 (add-to-list 'load-path (user-file "elisp"))
 

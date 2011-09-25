@@ -1,8 +1,5 @@
 (require 'cl)
 
-(defmacro site-load-file (file)
-  `(load-file ,(concat (expand-file-name user-emacs-directory) "site-start.d/" file)))
-
 (defmacro do-if-feature-exists (feature &rest body)
   "Executes body only if feature file was found in load-path.
 In fact a file of the form: <feature>.el or <feature>.elc"
