@@ -9,16 +9,22 @@
 (defmacro do-if-feature-exists (feature &rest body)
   "Executes body only if feature file was found in load-path.
 In fact a file of the form: <feature>.el or <feature>.elc"
-  (let ((dir (gensym))
-        (src-file (gensym))
-        (c-file (gensym)))
-    `(catch 'break
-       (dolist (,dir load-path)
-         (let* ((,src-file (concat ,dir "/" (symbol-name ,feature) ".el"))
-                (,c-file (concat ,src-file "c")))
-           (when (or (file-exists-p ,src-file) (file-exists-p ,c-file))
-             ,@body
-             (throw 'break nil)))))))
+  (let ((feature-test-symbol (intern (format "feature-exists-%s" (symbol-name feature)))))
+    (if (boundp feature-test-symbol)
+        (if (not (symbol-value feature-test-symbol))
+            nil
+          `(progn ,@body))
+      (let ((dir (gensym))
+            (src-file (gensym))
+            (c-file (gensym)))
+        `(catch 'break
+           (dolist (,dir load-path)
+             (let* ((,src-file (concat ,dir "/" (symbol-name ',feature) ".el"))
+                    (,c-file (concat ,src-file "c")))
+               (when (or (file-exists-p ,src-file) (file-exists-p ,c-file))
+                 (setf ,feature-test-symbol t)
+                 ,@body
+                 (throw 'break nil)))))))))
 
 (defmacro load-feature (feature &rest initialization)
   "Loads the given feature and executes the initialization code
@@ -26,7 +32,7 @@ if the feature is existent."
 
   `(condition-case nil
        (progn
-         (require ,feature)
+         (require ',feature)
          ,@initialization)
      (error)
      nil))
@@ -41,24 +47,28 @@ if the feature is existent."
 (add-to-list 'auto-mode-alist '("\\*message\\*\\-[0-9-]+$" . message-mode))
 
 ;; Load Applications and modes.
-(load-feature 'ibuffer
+(load-feature ibuffer
               ;; Install keybinding for ibuffer (Replacing buffer-list)
               (global-set-key (kbd "C-x C-b") #'ibuffer))
 
-(load-feature 'dired-x)
-(load-feature 'bbdb
+(load-feature dired-x)
+(load-feature bbdb
               (bbdb-initialize))
 
-(do-if-feature-exists 'w3m
+(do-if-feature-exists w3m
                       (setq newsticker-html-renderer 'w3m-region)
                       (autoload 'w3m "w3m-load" nil t)
                       (autoload 'w3m-region "w3m")
                       (autoload 'w3m-toggle-inline-image "w3m"))
 
-(do-if-feature-exists 'auctex
+(do-if-feature-exists auctex
                       ;; Load AucTeX only if needed.
                       (autoload 'TeX-latex-mode "auctex" nil t)
                       (add-to-list 'auto-mode-alist '("\\.\\(tex\\|sty\\|cls\\)$" . TeX-latex-mode)))
+
+(do-if-feature-exists mingus
+                      (autoload 'mingus "mingus" nil t)
+                      (global-set-key (kbd "<f5>") #'mingus))
 
 ;; Load include files.
 (site-load-file "custom.el")
@@ -81,3 +91,4 @@ if the feature is existent."
 (put 'downcase-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
 (put 'scroll-left 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
