@@ -7,6 +7,8 @@
 
 (global-set-key (kbd "<f2>") #'newsticker-plainview)
 
+(global-set-key (kbd "<f6>") #'w3m)
+
 (global-set-key (kbd "\C-x p")
                 (lambda (n)
                   (interactive "p")
@@ -33,3 +35,13 @@
 
   (interactive)
   (term "/usr/bin/screen"))
+
+(defun couchapp-compile ()
+  (interactive)
+  (let ((compile-command "couchapp push"))
+    (call-interactively #'compile)))
+
+(add-hook 'html-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-c")
+                           #'couchapp-compile)))
