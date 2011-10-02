@@ -10,6 +10,14 @@
 (do-if-feature-exists w3m
                       (global-set-key (kbd "<f6>") #'w3m))
 
+(do-if-feature-exists garak
+                      (global-set-key (kbd "<f7>")
+                                      (lambda ()
+                                        (interactive)
+                                        (if (get-buffer "*Garak*")
+                                            (switch-to-buffer "*Garak*")
+                                          (garak)))))
+
 (global-set-key (kbd "\C-x p")
                 (lambda (n)
                   (interactive "p")
