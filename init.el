@@ -5,6 +5,10 @@
 (defmacro site-load-file (file)
   `(load-file ,(concat (expand-file-name user-emacs-directory) "site-start.d/" file)))
 
+(defmacro add-to-path (file)
+  "Adds a file to the load-path"
+  `(add-to-list 'load-path ,(user-file file)))
+
 
 ;; Set load-path.
 (add-to-list 'load-path (user-file "elisp"))
@@ -41,6 +45,9 @@
 (do-if-feature-exists mingus
                       (autoload 'mingus "mingus" nil t)
                       (global-set-key (kbd "<f5>") #'mingus))
+
+(do-if-feature-exists garak
+                      (autoload 'garak "garak" nil t))
 
 ;; Load include files.
 (site-load-file "custom.el")
