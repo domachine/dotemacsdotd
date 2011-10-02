@@ -1,3 +1,4 @@
+(load-library "diary-lib")
 
 (defun facebook--convert-date (date)
   (unless (string-match (concat "\\([A-Z][a-z]+\\), *\\([0-9]+\\)\\. *"
