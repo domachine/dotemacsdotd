@@ -7,7 +7,8 @@
 
 (global-set-key (kbd "<f2>") #'newsticker-plainview)
 
-(global-set-key (kbd "<f6>") #'w3m)
+(do-if-feature-exists w3m
+                      (global-set-key (kbd "<f6>") #'w3m))
 
 (global-set-key (kbd "\C-x p")
                 (lambda (n)
