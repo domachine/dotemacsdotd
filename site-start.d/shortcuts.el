@@ -5,7 +5,11 @@
 
 (global-set-key (kbd "C-c C-r") #'org-remember)
 
-(global-set-key (kbd "<f2>") #'newsticker-plainview)
+(global-set-key (kbd "<f2>") (lambda ()
+                               (interactive)
+                               (unless (newsticker-running-p)
+                                 (newsticker-start))
+                               (newsticker-plainview)))
 
 (do-if-feature-exists w3m
                       (global-set-key (kbd "<f6>") #'w3m))
@@ -15,8 +19,17 @@
                                       (lambda ()
                                         (interactive)
                                         (if (get-buffer "*Garak*")
-                                            (switch-to-buffer "*Garak*")
-                                          (garak)))))
+                                            (progn
+                                              (delete-other-windows)
+                                              (switch-to-buffer "*garak*")
+                                              (display-buffer "*Garak*"))
+                                          (garak))))
+
+                      (defun garak-quit ()
+                        (interactive)
+                        (dolist (var '("*Garak*" "*garak*" "*elim-debug*"))
+                          (kill-buffer var))
+                        (kill-process "*elim*")))
 
 (global-set-key (kbd "\C-x p")
                 (lambda (n)
