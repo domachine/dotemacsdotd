@@ -82,6 +82,7 @@
 \\usepackage{amssymb}
 \\usepackage{hyperref}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}"))))
  '(org-startup-with-inline-images t)
+ '(passhash-wrapper-script-path "~/Workspace/passhash/src/passhash.sh")
  '(rmail-delete-after-output t)
  '(scroll-bar-mode nil)
  '(shell-file-name "bash")

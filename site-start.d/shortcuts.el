@@ -11,6 +11,14 @@
                                  (newsticker-start))
                                (newsticker-plainview)))
 
+(do-if-feature-exists mingus
+                      (global-set-key (kbd "<f5>")
+                                      (lambda ()
+                                        (interactive)
+                                        (unless (get-process "mpd")
+                                          (mingus-start-daemon))
+                                        (mingus))))
+
 (do-if-feature-exists w3m
                       (global-set-key (kbd "<f6>") #'w3m))
 
@@ -18,12 +26,17 @@
                       (global-set-key (kbd "<f7>")
                                       (lambda ()
                                         (interactive)
-                                        (if (get-buffer "*Garak*")
+                                        (if (or (equal (buffer-name) "*garak*")
+                                                (equal (buffer-name) "*Garak*"))
                                             (progn
                                               (delete-other-windows)
-                                              (switch-to-buffer "*garak*")
-                                              (display-buffer "*Garak*"))
-                                          (garak))))
+                                              (bury-buffer))
+                                          (if (get-buffer "*Garak*")
+                                              (progn
+                                                (delete-other-windows)
+                                                (switch-to-buffer "*garak*")
+                                                (display-buffer "*Garak*"))
+                                            (garak)))))
 
                       (defun garak-quit ()
                         (interactive)
@@ -31,7 +44,13 @@
                           (kill-buffer var))
                         (kill-process "*elim*")))
 
-(global-set-key (kbd "\C-x p")
+(global-set-key (kbd "<f9>") #'rmail)
+
+(do-if-feature-exists passhash
+                      (global-set-key (kbd "C-<f6>")
+                                      #'passhash))
+
+(global-set-key (kbd "C-x p")
                 (lambda (n)
                   (interactive "p")
                   (other-window (- n))))
@@ -52,11 +71,12 @@
                       (ucs-insert "201D")
                     (ucs-insert "201E"))))
 
-(defun screen ()
-  "Launches terminal with screen."
-
-  (interactive)
-  (term "/usr/bin/screen"))
+(global-set-key (kbd "<f8>")
+                (lambda ()
+                  (interactive)
+                  (if (equal (buffer-name) "*terminal*")
+                      (bury-buffer)
+                    (term "/usr/bin/screen"))))
 
 (defun couchapp-compile ()
   (interactive)
