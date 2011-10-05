@@ -11,7 +11,7 @@
 
 
 ;; Set load-path.
-(add-to-list 'load-path (user-file "elisp"))
+(add-to-path "elisp")
 
 ;; Load macros to make config more comfortable.
 (require 'site-utils)

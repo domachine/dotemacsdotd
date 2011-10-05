@@ -81,6 +81,7 @@
 \\usepackage{soul}
 \\usepackage{amssymb}
 \\usepackage{hyperref}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}"))))
+ '(org-publish-project-alist (quote (("MyDesktop" :base-directory "~/Blog" :publishing-directory "~/Blog/output" :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" :table-of-contents nil))))
  '(org-startup-with-inline-images t)
  '(passhash-wrapper-script-path "~/Workspace/passhash/src/passhash.sh")
  '(rmail-delete-after-output t)
