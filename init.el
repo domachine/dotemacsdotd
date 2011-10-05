@@ -35,7 +35,8 @@
                       (setq newsticker-html-renderer 'w3m-region)
                       (autoload 'w3m "w3m-load" nil t)
                       (autoload 'w3m-region "w3m")
-                      (autoload 'w3m-toggle-inline-image "w3m"))
+                      (autoload 'w3m-toggle-inline-image "w3m")
+                      (autoload 'w3m-goto-url-new-session "w3m"))
 
 (do-if-feature-exists auctex
                       ;; Load AucTeX only if needed.
@@ -44,10 +45,13 @@
 
 (do-if-feature-exists mingus
                       (autoload 'mingus "mingus" nil t)
-                      (global-set-key (kbd "<f5>") #'mingus))
+                      (autoload 'mingus-start-daemon "mingus" nil t))
 
 (do-if-feature-exists garak
                       (autoload 'garak "garak" nil t))
+
+(do-if-feature-exists passhash
+                      (autoload 'passhash "passhash" nil t))
 
 ;; Load include files.
 (site-load-file "custom.el")
