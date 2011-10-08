@@ -40,9 +40,10 @@
 
                       (defun garak-quit ()
                         (interactive)
-                        (dolist (var '("*Garak*" "*garak*" "*elim-debug*"))
+                        (dolist (var '("*Garak*" "*garak*"))
                           (kill-buffer var))
-                        (kill-process "*elim*")))
+                        (kill-process "*elim*")
+                        (kill-buffer "*elim-debug*")))
 
 (global-set-key (kbd "<f9>") #'rmail)
 
@@ -87,3 +88,5 @@
           (lambda ()
             (local-set-key (kbd "C-c C-c")
                            #'couchapp-compile)))
+
+(global-set-key (kbd "C-x c") #'bury-buffer)
