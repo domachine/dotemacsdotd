@@ -31,6 +31,11 @@
 (load-feature bbdb
               (bbdb-initialize))
 
+(load-feature auto-complete-config
+              (ac-config-default))
+
+(load-feature ac-slime)
+
 (do-if-feature-exists w3m
                       (setq newsticker-html-renderer 'w3m-region)
                       (autoload 'w3m "w3m-load" nil t)

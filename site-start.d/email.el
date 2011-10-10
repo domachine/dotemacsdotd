@@ -12,8 +12,8 @@
 (setq rmail-file-name "~/Mail/RMAIL")
 
 (setq rmail-output-file-alist
-      '(("<\\(update\\|notification\\)\\+[^@]+@facebookmail.com>" .
+      '(("\\(@uni-ulm.de\\|Universität Ulm\\)" . "~/Mail/UNI")
+        ("<\\(update\\|notification\\)\\+[^@]+@facebookmail.com>" .
          "~/Mail/FACEBOOK")
-        ("@uni-ulm.de" . "~/Mail/UNI")
         ("[xX][\\-_][aA][cC][tT]" . "~/Mail/X_ACT")
         ("info@campact.de" . "~/Mail/CAMPACT")))

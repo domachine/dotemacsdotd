@@ -17,12 +17,14 @@
  '(TeX-command-list (quote (("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode texinfo-mode ams-tex-mode) :help "Run plain TeX") ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("Makeinfo" "makeinfo %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file") ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
  '(TeX-parse-self t)
  '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "xpdf") (output-html "xdg-open"))))
+ '(ac-dictionary-directories (quote ("~/.emacs.d/auto-complete/ac-dict")))
  '(battery-mode-line-format "  [%b%p%%, %t]")
  '(browse-url-browser-function (quote w3m-goto-url-new-session))
  '(c-basic-offset 4)
  '(c-default-style (quote ((c-mode . "k&r") (c++-mode . "k&r") (java-mode . "java") (awk-mode . "k&r"))))
  '(cal-tex-diary t)
  '(calendar-mark-diary-entries-flag t)
+ '(calendar-today-visible-hook (quote (calendar-mark-today)))
  '(column-number-mode t)
  '(cperl-hairy t)
  '(diary-display-function (quote diary-fancy-display))
@@ -81,7 +83,7 @@
 \\usepackage{soul}
 \\usepackage{amssymb}
 \\usepackage{hyperref}" ("\\part{%s}" . "\\part*{%s}") ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}")) ("beamer" "\\documentclass{beamer}"))))
- '(org-publish-project-alist (quote (("MyDesktop" :base-directory "~/Blog" :publishing-directory "~/Blog/output" :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" :table-of-contents nil))))
+ '(org-publish-project-alist (quote (("orgfiles" :base-directory "~/Blog" :base-extension "org" :publishing-directory "/ssh:domachine.de:/var/www/domachine.de" :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"media/style.css\">" :table-of-contents nil :publishing-function org-publish-org-to-html) ("media" :base-directory "~/Blog/media" :base-extension "css\\|el\\|png\\|sh" :publishing-directory "/ssh:domachine.de:/var/www/domachine.de/media" :publishing-function org-publish-attachment) ("website" :components ("orgfiles" "media")))))
  '(org-startup-with-inline-images t)
  '(passhash-wrapper-script-path "~/Workspace/passhash/src/passhash.sh")
  '(rmail-delete-after-output t)

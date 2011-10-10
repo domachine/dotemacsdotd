@@ -18,3 +18,5 @@
                     (match-end 0)
                     'face (list :background 
                                 (match-string-no-properties 0)))))))))
+
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
