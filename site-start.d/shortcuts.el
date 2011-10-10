@@ -30,7 +30,10 @@
                                                 (equal (buffer-name) "*Garak*"))
                                             (progn
                                               (delete-other-windows)
-                                              (bury-buffer))
+                                              (dotimes (v 2)
+                                                (when (or (equal (buffer-name) "*Garak*")
+                                                          (equal (buffer-name) "*garak*"))
+                                                  (bury-buffer))))
                                           (if (get-buffer "*Garak*")
                                               (progn
                                                 (delete-other-windows)
