@@ -35,6 +35,7 @@
               (ac-config-default))
 
 (load-feature ac-slime)
+(load-feature yasnippet-bundle)
 
 (do-if-feature-exists w3m
                       (setq newsticker-html-renderer 'w3m-region)
