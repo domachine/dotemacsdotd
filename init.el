@@ -32,7 +32,9 @@
               (bbdb-initialize))
 
 (load-feature auto-complete-config
-              (ac-config-default))
+              (ac-config-default)
+              ;; Fix xref bug.
+              (require 'help-mode))
 
 (load-feature ac-slime)
 (load-feature yasnippet-bundle)
