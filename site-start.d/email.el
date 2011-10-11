@@ -15,5 +15,5 @@
       '(("\\(@uni-ulm.de\\|Universität Ulm\\)" . "~/Mail/UNI")
         ("<\\(update\\|notification\\)\\+[^@]+@facebookmail.com>" .
          "~/Mail/FACEBOOK")
-        ("[xX][\\-_][aA][cC][tT]" . "~/Mail/X_ACT")
+        ("[xX][_-][aA][cC][tT]" . "~/Mail/X_ACT")
         ("info@campact.de" . "~/Mail/CAMPACT")))
