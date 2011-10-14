@@ -93,3 +93,6 @@
                            #'couchapp-compile)))
 
 (global-set-key (kbd "C-x c") #'bury-buffer)
+
+(do-if-feature-exists auto-complete
+                      (define-key ac-mode-map (kbd "M-TAB") 'auto-complete))
