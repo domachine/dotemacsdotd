@@ -37,7 +37,9 @@
               (require 'help-mode))
 
 (load-feature ac-slime)
-(load-feature yasnippet-bundle)
+(load-feature yasnippet
+              (yas/initialize)
+              (yas/load-directory "~/.emacs.d/snippets"))
 
 (do-if-feature-exists w3m
                       (setq newsticker-html-renderer 'w3m-region)
