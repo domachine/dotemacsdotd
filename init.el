@@ -22,6 +22,10 @@
 ;; Set auto-mode-alist.
 (add-to-list 'auto-mode-alist '("\\*message\\*\\-[0-9-]+$" . message-mode))
 
+;; Load color theme.
+(do-if-feature-exists solarized-dark-theme
+                      (load-theme 'solarized-dark))
+
 ;; Load Applications and modes.
 (load-feature ibuffer
               ;; Install keybinding for ibuffer (Replacing buffer-list)
