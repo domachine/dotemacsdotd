@@ -96,3 +96,6 @@
 
 (do-if-feature-exists auto-complete
                       (define-key ac-mode-map (kbd "M-TAB") 'auto-complete))
+
+;; Unset annoying C-z key. It confuses my XMonad.
+(global-set-key (kbd "C-z") nil)
