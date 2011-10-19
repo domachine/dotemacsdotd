@@ -16,4 +16,6 @@
         ("<\\(update\\|notification\\)\\+[^@]+@facebookmail.com>" .
          "~/Mail/FACEBOOK")
         ("[xX][_-][aA][cC][tT]" . "~/Mail/X_ACT")
+        ("[sS][oO][fF][oO][rR][tT][hH][oO][lL][zZ]" . "~/Mail/SOFORTHOLZ")
+        ("informationen@gmx.de" . "~/Mail/CHRISTOPH")
         ("info@campact.de" . "~/Mail/CAMPACT")))
