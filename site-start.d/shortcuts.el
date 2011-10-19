@@ -78,9 +78,11 @@
 (global-set-key (kbd "<f8>")
                 (lambda ()
                   (interactive)
-                  (if (equal (buffer-name) "*terminal*")
+                  (if (equal (buffer-name) "*ansi-term*")
                       (bury-buffer)
-                    (term "/usr/bin/screen"))))
+                    (if (get-buffer "*ansi-term*")
+                        (switch-to-buffer "*ansi-term*")
+                      (ansi-term "/usr/bin/screen")))))
 
 (defun couchapp-compile ()
   (interactive)
