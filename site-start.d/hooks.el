@@ -17,7 +17,9 @@
                 (0 (put-text-property
                     (match-beginning 0)
                     (match-end 0)
-                    'face (list :background 
+                    'face (list :background
                                 (match-string-no-properties 0)))))))))
 (do-if-feature-exists ac-slime
                       (add-hook 'slime-mode-hook #'set-up-slime-ac))
+
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
