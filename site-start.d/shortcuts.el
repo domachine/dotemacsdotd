@@ -82,7 +82,15 @@
                       (bury-buffer)
                     (if (get-buffer "*ansi-term*")
                         (switch-to-buffer "*ansi-term*")
-                      (ansi-term "/usr/bin/screen")))))
+                      (ansi-term "/usr/bin/screen")
+
+                      ;; Make it easy to yank in terminal mode.
+                      (local-set-key (kbd "C-x y")
+                                     (lambda ()
+                                       (interactive)
+                                       (term-line-mode)
+                                       (yank)
+                                       (term-char-mode)))))))
 
 (defun couchapp-compile ()
   (interactive)
