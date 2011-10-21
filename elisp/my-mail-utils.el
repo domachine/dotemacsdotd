@@ -66,6 +66,6 @@
     (let ((name (match-string 1))
           (email (match-string 2)))
       (if (y-or-n-p (format "Add (\"%s\" \"%s\") to bbdb? " name email))
-          (bbdb-create-internal (match-string 1) "" (match-string 2) "" "" "")))))
+          (bbdb-create-internal name "" email "" "" "")))))
 
 (provide 'my-mail-utils)
