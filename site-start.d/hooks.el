@@ -23,3 +23,5 @@
                       (add-hook 'slime-mode-hook #'set-up-slime-ac))
 
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
+
+(add-hook 'message-mode-hook #'flyspell-mode)
