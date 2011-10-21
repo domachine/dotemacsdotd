@@ -38,7 +38,7 @@
         (when (listp week)
           (with-current-buffer output
             (org-insert-heading-respect-content)
-            (insert (concat "Week: " (xml-get-attribute week 'weekOfYear)))
+            (insert (concat "Woche: " (xml-get-attribute week 'weekOfYear)))
             (newline)
 
             (dolist (day (xml-get-children week 'day))
