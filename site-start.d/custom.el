@@ -47,6 +47,7 @@
  '(ibuffer-show-empty-filter-groups nil)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(ispell-dictionary "deutsch8")
  '(menu-bar-mode nil)
  '(message-send-mail-function (quote smtpmail-send-it))
  '(muse-project-alist (quote (("MyBlog" ("~/Blog" :default "journal") (:base "journal-xhtml" :base-url "" :path "~/Blog/") (:base "journal-rss" :base-url "" :path "~/Blog/")))))
