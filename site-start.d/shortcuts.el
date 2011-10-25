@@ -54,6 +54,9 @@
                       (global-set-key (kbd "C-<f6>")
                                       #'passhash))
 
+(do-if-feature-exists bbdb
+                      (global-set-key (kbd "<f11>") #'bbdb))
+
 (global-set-key (kbd "C-x p")
                 (lambda (n)
                   (interactive "p")
