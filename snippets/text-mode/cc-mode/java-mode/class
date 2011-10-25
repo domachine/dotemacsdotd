@@ -1,0 +1,14 @@
+#name : class ... { ... }
+# --
+public class ${1:Name}
+{
+    public ${1:$(yas/substr text "[^: ]*")}($2)
+    {
+        $3
+    }
+
+    public static void main(String args[])
+    {
+        $4
+    }
+}
