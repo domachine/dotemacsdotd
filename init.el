@@ -12,6 +12,7 @@
 
 ;; Set load-path.
 (add-to-path "elisp")
+(add-to-path "elisp/ajc-java-complete")
 
 ;; Load macros to make config more comfortable.
 (require 'site-utils)
@@ -66,6 +67,9 @@
 
 (do-if-feature-exists passhash
                       (autoload 'passhash "passhash" nil t))
+
+(do-if-feature-exists ajc-java-complete-config
+                      (autoload 'ajc-java-complete-mode "ajc-java-complete-config"))
 
 ;; Load include files.
 (site-load-file "custom.el")

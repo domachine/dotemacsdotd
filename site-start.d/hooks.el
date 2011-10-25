@@ -25,3 +25,6 @@
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 (add-hook 'message-mode-hook #'flyspell-mode)
+
+(do-if-feature-exists ajc-java-complete-config
+                      (add-hook 'java-mode-hook #'ajc-java-complete-mode))

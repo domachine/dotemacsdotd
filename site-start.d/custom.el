@@ -19,6 +19,7 @@
  '(TeX-parse-self t)
  '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "xpdf") (output-html "xdg-open"))))
  '(ac-dictionary-directories (quote ("~/.emacs.d/auto-complete/ac-dict")))
+ '(ajc-tag-file (concat user-emacs-directory "tags/java_base.tag"))
  '(battery-mode-line-format "  [%b%p%%, %t]")
  '(browse-url-browser-function (quote w3m-goto-url-new-session))
  '(browse-url-generic-program "chromium")
