@@ -13,6 +13,7 @@
 ;; Set load-path.
 (add-to-path "elisp")
 (add-to-path "elisp/ajc-java-complete")
+(add-to-path "elisp/org-mode")
 
 ;; Load macros to make config more comfortable.
 (require 'site-utils)
@@ -46,12 +47,11 @@
               (yas/initialize)
               (yas/load-directory "~/.emacs.d/snippets"))
 
-(do-if-feature-exists w3m
-                      (setq newsticker-html-renderer 'w3m-region)
-                      (autoload 'w3m "w3m-load" nil t)
-                      (autoload 'w3m-region "w3m")
-                      (autoload 'w3m-toggle-inline-image "w3m")
-                      (autoload 'w3m-goto-url-new-session "w3m"))
+(load-feature w3m
+              (setq newsticker-html-renderer 'w3m-region))
+
+(load-feature org-install
+              (load-feature ob-tangle))
 
 (do-if-feature-exists auctex
                       ;; Load AucTeX only if needed.
