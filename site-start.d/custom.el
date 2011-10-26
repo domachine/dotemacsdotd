@@ -52,7 +52,7 @@
  '(menu-bar-mode nil)
  '(message-send-mail-function (quote smtpmail-send-it))
  '(muse-project-alist (quote (("MyBlog" ("~/Blog" :default "journal") (:base "journal-xhtml" :base-url "" :path "~/Blog/") (:base "journal-rss" :base-url "" :path "~/Blog/")))))
- '(newsticker-url-list (quote (("Tagesschau" "http://www.tagesschau.de/newsticker.rdf" nil nil nil) ("Heise" "http://www.heise.de/newsticker/heise.rdf" nil nil nil))))
+ '(newsticker-url-list (quote (("Heise" "http://www.heise.de/newsticker/heise.rdf" nil nil nil) ("Golem" "http://rss.golem.de/rss.php?feed=RSS1.9" nil nil nil))))
  '(newsticker-url-list-defaults nil)
  '(newsticker-wget-arguments (quote ("-q" "-O" "-" "--timeout=20")))
  '(org-agenda-files (quote ("~/Documents/org/notes.org" "~/Documents/org/uni.org" "~/Documents/org/projects.org" "~/Documents/org/sofortholz.org" "~/Documents/org/x-act.org" "~/Documents/org/other.org")))
