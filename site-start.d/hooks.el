@@ -1,5 +1,8 @@
-(add-hook 'ibuffer-mode-hook
-          (lambda nil (ibuffer-auto-mode 1) (ibuffer-switch-to-saved-filter-groups "default")))
+(do-if-feature-exists ibuffer
+                      (add-hook 'ibuffer-mode-hook
+                                (lambda nil
+                                  (ibuffer-auto-mode 1)
+                                  (ibuffer-switch-to-saved-filter-groups "default")))
 
 (do-if-feature-exists auctex
                       (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode))
@@ -40,3 +43,5 @@
                                   (setq yas/trigger-key [tab])
                                   (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
                                   (define-key yas/keymap [tab] 'yas/next-field))))
+
+(add-hook 'kill-emacs-hook #'tramp-cleanup-all-connections)
