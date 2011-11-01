@@ -2,7 +2,7 @@
                       (add-hook 'ibuffer-mode-hook
                                 (lambda nil
                                   (ibuffer-auto-mode 1)
-                                  (ibuffer-switch-to-saved-filter-groups "default")))
+                                  (ibuffer-switch-to-saved-filter-groups "default"))))
 
 (do-if-feature-exists auctex
                       (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode))
