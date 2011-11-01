@@ -49,3 +49,9 @@
             (condition-case excep
                 (tramp-cleanup-all-connections)
               (error nil))))
+
+(add-hook 'ibuffer-hook
+          (lambda ()
+            (ibuffer-filter-disable)
+            (ibuffer-add-saved-filters "default")
+            (ibuffer-add-saved-filters "asterisk")))
