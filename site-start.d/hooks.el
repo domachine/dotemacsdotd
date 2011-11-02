@@ -25,7 +25,9 @@
 (do-if-feature-exists ac-slime
                       (add-hook 'slime-mode-hook #'set-up-slime-ac))
 
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
+(add-hook 'before-save-hook (lambda ()
+                              (unless buffer-read-only
+                                (delete-trailing-whitespace))))
 
 (add-hook 'message-mode-hook #'flyspell-mode)
 
