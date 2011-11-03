@@ -75,6 +75,10 @@
 (do-if-feature-exists ajc-java-complete-config
                       (autoload 'ajc-java-complete-mode "ajc-java-complete-config"))
 
+(do-if-feature-exists haskell-mode
+                      (autoload 'haskell-mode "haskell-mode" nil t)
+                      (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode)))
+
 ;; Load include files.
 (site-load-file "custom.el")
 (site-load-file "email.el")
