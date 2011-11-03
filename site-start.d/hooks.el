@@ -57,3 +57,7 @@
             (ibuffer-filter-disable)
             (ibuffer-add-saved-filters "default")
             (ibuffer-add-saved-filters "asterisk")))
+
+(do-if-feature-exists haskell-indent
+                      (autoload 'haskell-indent-mode "haskell-indent" nil t)
+                      (add-hook 'haskell-mode-hook #'haskell-indent-mode))
