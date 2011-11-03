@@ -20,7 +20,7 @@
  '(TeX-view-program-list (quote (("Zathura" "zathura"))))
  '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "Zathura") (output-html "xdg-open"))))
  '(ac-dictionary-directories (quote ("~/.emacs.d/auto-complete/ac-dict")))
- '(ac-modes (quote (emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode latex-mode)))
+ '(ac-modes (quote (emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode latex-mode haskell-mode)))
  '(ajc-tag-file (concat user-emacs-directory "tags/java_base.tag"))
  '(battery-mode-line-format "  [%b%p%%, %t]")
  '(browse-url-browser-function (quote w3m-goto-url-new-session))
