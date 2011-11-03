@@ -25,8 +25,9 @@
 (add-to-list 'auto-mode-alist '("\\*message\\*\\-[0-9-]+$" . message-mode))
 
 ;; Load color theme.
-(do-if-feature-exists solarized-dark-theme
-                      (load-theme 'solarized-dark))
+(when window-system
+  (do-if-feature-exists solarized-dark-theme
+                        (load-theme 'solarized-dark)))
 
 ;; Load Applications and modes.
 (load-feature ibuffer
