@@ -50,7 +50,7 @@
 
 (do-if-feature-exists w3m
                       (setq newsticker-html-renderer 'w3m-region)
-                      (autoload 'w3m "w3m-load" nil t)
+                      (autoload 'w3m "w3m" nil t)
                       (autoload 'w3m-region "w3m")
                       (autoload 'w3m-toggle-inline-image "w3m")
                       (autoload 'w3m-goto-url-new-session "w3m"))
@@ -62,10 +62,6 @@
                       ;; Load AucTeX only if needed.
                       (autoload 'TeX-latex-mode "auctex" nil t)
                       (add-to-list 'auto-mode-alist '("\\.\\(tex\\|sty\\|cls\\)$" . TeX-latex-mode)))
-
-(do-if-feature-exists mingus
-                      (autoload 'mingus "mingus" nil t)
-                      (autoload 'mingus-start-daemon "mingus" nil t))
 
 (do-if-feature-exists garak
                       (autoload 'garak "garak" nil t))

@@ -48,7 +48,8 @@
                         (kill-process "*elim*")
                         (kill-buffer "*elim-debug*")))
 
-(global-set-key (kbd "<f9>") #'rmail)
+(global-set-key (kbd "<f9>") #'man-follow)
+(global-set-key (kbd "<f8>") #'rmail)
 
 (do-if-feature-exists passhash
                       (global-set-key (kbd "C-<f6>")
@@ -78,22 +79,21 @@
                       (ucs-insert "201D")
                     (ucs-insert "201E"))))
 
-(global-set-key (kbd "<f8>")
-                (lambda ()
-                  (interactive)
-                  (if (equal (buffer-name) "*ansi-term*")
-                      (bury-buffer)
-                    (if (get-buffer "*ansi-term*")
-                        (switch-to-buffer "*ansi-term*")
-                      (ansi-term "/usr/bin/screen")
+(defun screen ()
+  (interactive)
+  (if (equal (buffer-name) "*ansi-term*")
+      (bury-buffer)
+    (if (get-buffer "*ansi-term*")
+        (switch-to-buffer "*ansi-term*")
+      (ansi-term "/usr/bin/screen")
 
-                      ;; Make it easy to yank in terminal mode.
-                      (local-set-key (kbd "C-x y")
-                                     (lambda ()
-                                       (interactive)
-                                       (term-line-mode)
-                                       (yank)
-                                       (term-char-mode)))))))
+      ;; Make it easy to yank in terminal mode.
+      (local-set-key (kbd "C-x y")
+                     (lambda ()
+                       (interactive)
+                       (term-line-mode)
+                       (yank)
+                       (term-char-mode))))))
 
 (defun couchapp-compile ()
   (interactive)
@@ -112,3 +112,7 @@
 
 ;; Unset annoying C-z key. It confuses my XMonad.
 (global-set-key (kbd "C-z") nil)
+(global-set-key (kbd "C-M-^")
+                (lambda ()
+                  (interactive)
+                  (scroll-other-window '-)))
