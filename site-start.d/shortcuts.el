@@ -116,3 +116,11 @@
                 (lambda ()
                   (interactive)
                   (scroll-other-window '-)))
+
+(global-set-key (kbd "C-x y")
+                (lambda ()
+                  (interactive)
+                  (with-temp-buffer
+                    (call-process-shell-command "xclip -o" nil t)
+                    (kill-region (point-min) (point-max)))
+                  (yank)))
