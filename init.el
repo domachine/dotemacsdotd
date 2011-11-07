@@ -58,6 +58,8 @@
 (load-feature org-install
               (load-feature ob-tangle))
 
+(load-feature openwith)
+
 (do-if-feature-exists auctex
                       ;; Load AucTeX only if needed.
                       (autoload 'TeX-latex-mode "auctex" nil t)

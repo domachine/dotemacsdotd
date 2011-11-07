@@ -58,6 +58,8 @@
  '(newsticker-url-list (quote (("Heise" "http://www.heise.de/newsticker/heise.rdf" nil nil nil))))
  '(newsticker-url-list-defaults nil)
  '(newsticker-wget-arguments (quote ("-q" "-O" "-" "--timeout=20")))
+ '(openwith-associations (quote (("\\.pdf\\'" "zathura" (file)) ("\\.mp3\\'" "mplayer" (file)) ("\\.\\(?:mpe?g\\|avi\\|flv\\)\\'" "mplayer" ("-idx" file)) ("\\.\\(?:jp?g\\|png\\)\\'" "feh" (file)))))
+ '(openwith-mode t)
  '(org-agenda-files (quote ("~/Documents/org/notes.org" "~/Documents/org/uni.org" "~/Documents/org/projects.org" "~/Documents/org/sofortholz.org" "~/Documents/org/x-act.org" "~/Documents/org/other.org")))
  '(org-agenda-include-diary t)
  '(org-babel-load-languages (quote ((emacs-lisp . t) (awk . t) (C . t) (haskell . t) (js . t) (sh . t) (scheme . t))))
