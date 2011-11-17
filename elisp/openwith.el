@@ -44,19 +44,16 @@
   :group 'processes)
 
 (defcustom openwith-associations
-  '(("\\.pdf\\'" "acroread" (file))
-    ("\\.mp3\\'" "xmms" (file))
-    ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "mplayer" ("-idx" file))
-    ("\\.\\(?:jp?g\\|png\\)\\'" "display" (file)))
+  '(("\\.pdf\\'" . "acroread")
+    ("\\.mp3\\'" . "xmms")
+    ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" . "mplayer")
+    ("\\.\\(?:jp?g\\|png\\)\\'" . "display"))
   "Associations of file patterns to external programs.
 File pattern is a regular expression describing the files to
 associate with a program. The program arguments are a list of
 strings and symbols and are passed to the program on invocation,
 where the symbol 'file' is replaced by the file to be opened."
-  :group 'openwith
-  :type '(repeat (list (regexp :tag "Files")
-                       (string :tag "Program")
-                       (sexp :tag "Parameters"))))
+  :group 'openwith)
 
 (defcustom openwith-confirm-invocation nil
   "Ask for confirmation before invoking external programs."
@@ -75,16 +72,20 @@ where the symbol 'file' is replaced by the file to be opened."
         (setq oa (car assocs)
               assocs (cdr assocs))
         (when (save-match-data (string-match (car oa) file))
-          (let ((params (mapcar (lambda (x) (if (eq x 'file) file x))
-                                (nth 2 oa))))
-            (when (or (not openwith-confirm-invocation)
-                      (y-or-n-p (format "%s %s? " (cadr oa)
-                                        (mapconcat #'identity params " "))))
-              (apply #'start-process "openwith-process" nil (cadr oa) params)
-              (kill-buffer nil)
-              ;; inhibit further actions
-              (error "Opened %s in external program"
-                     (file-name-nondirectory file))))))))
+          (when (or (not openwith-confirm-invocation)
+                    (y-or-n-p (format "%s %s? " (cadr oa)
+                                      (mapconcat #'identity params " "))))
+            (message "%s" (replace-regexp-in-string (cdr oa) "%s"
+                                       (shell-quote-argument file) t t))
+            (start-process-shell-command
+             "openwith-process" nil
+             (replace-regexp-in-string "%s"
+                                       (shell-quote-argument file)
+                                       (cdr oa) t t))
+            (kill-buffer nil)
+            ;; inhibit further actions
+            (error "Opened %s in external program"
+                   (file-name-nondirectory file)))))))
   ;; when no association was found, relay the operation to other handlers
   (let ((inhibit-file-name-handlers
          (cons 'openwith-file-handler

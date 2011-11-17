@@ -48,7 +48,7 @@
                         (kill-process "*elim*")
                         (kill-buffer "*elim-debug*")))
 
-(global-set-key (kbd "<f9>") #'man-follow)
+(global-set-key (kbd "<f11>") #'man-follow)
 (global-set-key (kbd "<f8>") #'rmail)
 
 (do-if-feature-exists passhash
@@ -56,7 +56,7 @@
                                       #'passhash))
 
 (do-if-feature-exists bbdb
-                      (global-set-key (kbd "<f11>") #'bbdb))
+                      (global-set-key (kbd "<f9>") #'bbdb))
 
 (global-set-key (kbd "C-x p")
                 (lambda (n)

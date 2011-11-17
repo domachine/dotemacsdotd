@@ -89,9 +89,9 @@
 (server-start)
 
 ;; Save me from closing emacs accidentially
-(add-to-list 'kill-emacs-query-functions
-             (lambda ()
-               (y-or-n-p "Do you really want to exit Emacs? ")))
+;;(add-to-list 'kill-emacs-query-functions
+;;             (lambda ()
+;;               (y-or-n-p "Do you really want to exit Emacs? ")))
 
 ;; Enabled commands.
 (put 'dired-find-alternate-file 'disabled nil)
