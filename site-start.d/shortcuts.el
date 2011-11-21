@@ -12,18 +12,10 @@
                                (newsticker-plainview)))
 
 (do-if-feature-exists mingus
-                      (global-set-key (kbd "<f5>")
-                                      (lambda ()
-                                        (interactive)
-                                        (unless (get-process "mpd")
-                                          (mingus-start-daemon))
-                                        (mingus))))
-
-(do-if-feature-exists w3m
-                      (global-set-key (kbd "<f6>") #'w3m))
+                      (global-set-key (kbd "<f6>") #'rmail))
 
 (do-if-feature-exists garak
-                      (global-set-key (kbd "<f7>")
+                      (global-set-key (kbd "<f5>")
                                       (lambda ()
                                         (interactive)
                                         (if (or (equal (buffer-name) "*garak*")
@@ -48,15 +40,15 @@
                         (kill-process "*elim*")
                         (kill-buffer "*elim-debug*")))
 
-(global-set-key (kbd "<f11>") #'man-follow)
-(global-set-key (kbd "<f8>") #'rmail)
+(do-if-feature-exists bbdb
+                      (global-set-key (kbd "<f7>") #'bbdb))
+
+(global-set-key (kbd "<f8>") #'man-follow)
 
 (do-if-feature-exists passhash
                       (global-set-key (kbd "C-<f6>")
                                       #'passhash))
 
-(do-if-feature-exists bbdb
-                      (global-set-key (kbd "<f9>") #'bbdb))
 
 (global-set-key (kbd "C-x p")
                 (lambda (n)
