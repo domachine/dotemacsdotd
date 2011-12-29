@@ -54,6 +54,10 @@
                 (tramp-cleanup-all-connections)
               (error nil))))
 
-(do-if-feature-exists haskell-indent
-                      (autoload 'haskell-indent-mode "haskell-indent" nil t)
+(do-if-feature-exists haskell-mode/haskell-indent
+                      (autoload 'haskell-indent-mode "haskell-mode/haskell-indent" nil t)
                       (add-hook 'haskell-mode-hook #'haskell-indent-mode))
+
+(add-hook 'LaTeX-mode-hook #'flyspell-mode)
+(add-hook 'LaTeX-mode-hook #'outline-minor-mode)
+(add-hook 'LaTeX-mode-hook #'reftex-mode)

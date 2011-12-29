@@ -25,9 +25,9 @@
 (add-to-list 'auto-mode-alist '("\\*message\\*\\-[0-9-]+$" . message-mode))
 
 ;; Load color theme.
-(when window-system
-  (do-if-feature-exists solarized-dark-theme
-                        (load-theme 'solarized-dark)))
+;;(when window-system
+;;  (do-if-feature-exists solarized-dark-theme
+;;                        (load-theme 'solarized-dark) ;;))
 
 ;; Load Applications and modes.
 (load-feature ibuffer
@@ -40,6 +40,7 @@
 
 (load-feature auto-complete-config
               (ac-config-default)
+              (ac-flyspell-workaround)
               ;; Fix xref bug.
               (require 'help-mode))
 
@@ -58,7 +59,7 @@
 (load-feature org-install
               (load-feature ob-tangle))
 
-(load-feature openwith)
+;;(load-feature openwith)
 
 (do-if-feature-exists auctex
                       ;; Load AucTeX only if needed.
@@ -74,8 +75,8 @@
 (do-if-feature-exists ajc-java-complete-config
                       (autoload 'ajc-java-complete-mode "ajc-java-complete-config"))
 
-(do-if-feature-exists haskell-mode
-                      (autoload 'haskell-mode "haskell-mode" nil t)
+(do-if-feature-exists haskell-mode/haskell-mode
+                      (autoload 'haskell-mode "haskell-mode/haskell-mode" nil t)
                       (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode)))
 
 ;; Load include files.

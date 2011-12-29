@@ -18,4 +18,5 @@
         ("[xX][_-][aA][cC][tT]" . "~/Mail/X_ACT")
         ("[sS][oO][fF][oO][rR][tT][hH][oO][lL][zZ]" . "~/Mail/SOFORTHOLZ")
         ("informationen@gmx.de" . "~/Mail/CHRISTOPH")
-        ("info@campact.de" . "~/Mail/CAMPACT")))
+        ("info@campact.de" . "~/Mail/CAMPACT")
+        ("haevyroxxer@me.com" . "~/Mail/WE_ARE_LEGEND")))

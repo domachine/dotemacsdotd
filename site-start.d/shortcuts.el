@@ -14,25 +14,26 @@
 (do-if-feature-exists mingus
                       (global-set-key (kbd "<f6>") #'rmail))
 
+(defun garak-toggle ()
+  (interactive)
+  (if (or (equal (buffer-name) "*garak*")
+          (equal (buffer-name) "*Garak*"))
+      (progn
+        (delete-other-windows)
+        (dotimes (v 2)
+          (when (or (equal (buffer-name) "*Garak*")
+                    (equal (buffer-name) "*garak*"))
+            (bury-buffer))))
+    (if (get-buffer "*Garak*")
+        (progn
+          (delete-other-windows)
+          (switch-to-buffer "*garak*")
+          (display-buffer "*Garak*"))
+      (garak))))
+
 (do-if-feature-exists garak
                       (global-set-key (kbd "<f5>")
-                                      (lambda ()
-                                        (interactive)
-                                        (if (or (equal (buffer-name) "*garak*")
-                                                (equal (buffer-name) "*Garak*"))
-                                            (progn
-                                              (delete-other-windows)
-                                              (dotimes (v 2)
-                                                (when (or (equal (buffer-name) "*Garak*")
-                                                          (equal (buffer-name) "*garak*"))
-                                                  (bury-buffer))))
-                                          (if (get-buffer "*Garak*")
-                                              (progn
-                                                (delete-other-windows)
-                                                (switch-to-buffer "*garak*")
-                                                (display-buffer "*Garak*"))
-                                            (garak)))))
-
+                                      #'garak-toggle)
                       (defun garak-quit ()
                         (interactive)
                         (dolist (var '("*Garak*" "*garak*"))
@@ -116,3 +117,36 @@
                     (call-process-shell-command "xclip -o" nil t)
                     (kill-region (point-min) (point-max)))
                   (yank)))
+
+(defun kill-ring-save-export (start end)
+  (interactive "r")
+  (kill-ring-save start end)
+  (let ((text (buffer-substring start end)))
+    (with-current-buffer (find-file-noselect "/tmp/screen-exchange")
+      (erase-buffer)
+      (insert text)
+      (save-buffer)
+      (call-process-shell-command "screen -X readbuf")
+      (let ((process-environment
+             (cons "DISPLAY=:0" process-environment)))
+        (call-process-region (point-min) (point-max) "xsel"
+                             nil nil nil "-i" "--clipboard"))
+      (kill-buffer))))
+
+;; Little hack to integrate emacs kill ring with
+;; screen and X.
+(global-set-key (kbd "M-w") #'kill-ring-save-export)
+
+(global-set-key (kbd "C-x C-c") #'delete-frame)
+
+(load-feature vc-dir
+              (defvar server-vc-dir nil)
+              (define-key vc-dir-mode-map (kbd "q") (lambda ()
+                                                      (interactive)
+                                                      (quit-window t)
+                                                      (when server-vc-dir
+                                                        (delete-frame)
+                                                        (setq server-vc-dir nil)))))
+
+(global-set-key (kbd "C-<f5>") #'revert-buffer)
+(global-set-key (kbd "C-x f") #'auto-fill-mode)
